@@ -1,0 +1,62 @@
+
+
+<!-- View -->
+<div data-role="view" id="setting-view" data-title="Settings"
+     data-layout="mobile-tabstrip"
+    data-init="app.views.setting.init"
+     data-model="app.views.setting.viewModel">
+    <section>
+        <ul data-role="listview" data-style="inset" data-type="group">
+            <li>
+                Defects
+                <ul>
+                    <li>
+                        Auto process defects
+                        <input type="checkbox" data-role="switch" data-bind="checked: isAutoProcessDefect,events: { change: onChangeAutoProcessDefect }"/>
+                    </li>
+                </ul>
+            </li>
+            <li id="profileUser">
+                Profile
+                <ul>
+                    <span class="description-span">Please input your information for getting our best service</span>
+                    <li>
+                        <label class="km-label-above">
+                            Company ID
+                            <input type="text" name="companyID" id="companyID" class="font12size" data-bind="value: companyID" placeholder="Computer ID" />
+                        </label>
+                        
+                    </li>
+                    <li>
+                        <label class="km-label-above">
+                            Company Password
+                        <input type="password" name="companyPassword" id="companyPassword" class="font12size" data-bind="value: companyPassword" placeholder="Computer Password" />
+                        </label>
+                    </li>
+                    <li>
+                        <label class="km-label-above">
+                             User Name
+                        <input type="text" name="username" id="username" class="font12size" data-bind="value: username" placeholder="name" />
+                        </label>
+                    </li>
+                    <li>
+                        <label class="km-label-above">
+                            Email
+                        <input type="email" name="email" id="email" class="font12size" data-bind="value: email" placeholder="email@abc.com" />
+                        </label>
+                    </li>
+                    <li>
+                        <label class="km-label-above">
+                            Contact Number
+                        <input type="tel" name="contactNo" id="contactNo" class="font12size" data-bind="value: contactNo" placeholder="Contact Number" />
+                        </label>
+                    </li>
+                
+                </ul>
+                <a data-role="button" class="button-middle" data-bind="events:{click: saveProfile}">Save</a>
+            </li>
+        </ul>
+    </section>
+
+</div>
+    

@@ -1,42 +1,55 @@
 <!DOCTYPE html>
-<!--
-    Licensed to the Apache Software Foundation (ASF) under one
-    or more contributor license agreements.  See the NOTICE file
-    distributed with this work for additional information
-    regarding copyright ownership.  The ASF licenses this file
-    to you under the Apache License, Version 2.0 (the
-    "License"); you may not use this file except in compliance
-    with the License.  You may obtain a copy of the License at
-
-    http://www.apache.org/licenses/LICENSE-2.0
-
-    Unless required by applicable law or agreed to in writing,
-    software distributed under the License is distributed on an
-    "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
-     KIND, either express or implied.  See the License for the
-    specific language governing permissions and limitations
-    under the License.
--->
 <html>
-    <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-        <meta name="format-detection" content="telephone=no" />
-        <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height, target-densitydpi=device-dpi" />
-        <link rel="stylesheet" type="text/css" href="css/index.css" />
-        <title>Hello World!</title>
-    </head>
-    <body>
-        <div class="app">
-            <h1>Apache Cordova</h1>
-            <div id="deviceready" class="blink">
-                <p class="event listening">Connecting to Device</p>
-                <p class="event received">Device is Ready</p>
-            </div>
+<head>
+	<meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, user-scalable=no, target-densitydpi=device-dpi" /> 
+	<title> Defect Management - Public User </title>
+    <script src="cordova.js"></script>
+	<script data-main="scripts/main" src="scripts/libs/require.js"></script>
+    <link href="./public/styles/kendo.common.min.css" rel="stylesheet">
+    <link href="./public/styles/kendo.dataviz.mobile.min.css" rel="stylesheet">
+    <link href="./public/styles/kendo.dataviz.default.min.css" rel="stylesheet">
+	<link rel="stylesheet" href="./public/styles/kendo.mobile.all.min.css">
+    <link rel="stylesheet" href="./public/styles/main.css">
+	</head>
+	<body>
+
+<!-- Layout for all -->
+<div data-role="layout" data-id="mobile-tabstrip">
+    <header data-role="header">
+        <div data-role="navbar">
+            <!-- <a class="nav-button" data-align="left" data-role="backbutton">Back</a> -->
+            <span data-role="view-title"></span>
+            <!--<a data-align="right" data-role="button" class="nav-button" href="#/">Index</a> -->
         </div>
-        <script type="text/javascript" src="cordova.js"></script>
-        <script type="text/javascript" src="js/index.js"></script>
-        <script type="text/javascript">
-            app.initialize();
-        </script>
-    </body>
+    </header>
+
+    <p>TabStrip</p>
+
+    <div data-role="footer">
+        <div data-role="tabstrip">
+            <a href="#defects-view" class="tabstrip-border" data-icon="defects">Defects</a>
+            <a href="./views/report.html" class="tabstrip-border" data-icon="report">Report</a>
+            <a href="./views/setting.html" class="tabstrip-border" data-icon="settings">Setting</a>
+        </div>
+    </div>
+</div>
+
+<!-- View -->
+<div data-role="view" id="defects-view" data-title="Defects"
+		data-layout="mobile-tabstrip"
+        data-init="app.views.defects.init"
+        data-after-show="app.views.defects.afterShow"
+    data-model="app.views.defects.viewModel">
+     <header data-role="header">
+        <div data-role="navbar">
+            <!-- <a class="nav-button" data-align="left" data-role="backbutton">Back</a> -->
+            <span data-role="view-title"></span>
+            <a data-align="right" data-role="button" class="nav-button" href="views/newDefect.html">New Defect</a>
+        </div>
+    </header>
+    <ul id="listDefects"></ul>
+</div>
+      
+	</body>
 </html>

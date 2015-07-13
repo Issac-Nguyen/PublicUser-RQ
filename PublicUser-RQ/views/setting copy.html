@@ -1,0 +1,24 @@
+
+
+<!-- View -->
+<div data-role="view" id="home-view1" data-title="Hello World!"
+		data-layout="mobile-tabstrip"
+    data-model="app.views.home1.viewModel">
+    <header data-role="header">
+        <div data-role="navbar">
+            <a data-align="right" data-role="button" data-rel="modalview" href="#modalview-login" id="btnNewCancel">New Defect</a>
+            <span data-role="view-title"></span>
+        </div>
+    </header>
+    <h1 data-bind="text: message" ></h1>
+    <a data-role="button" data-bind="events:{click: clickTest}">test</a>
+</div>
+
+<div data-role="modalview" id="modalview-login" style="width: 90%;" data-model="app.views.modalCreate.viewModel">
+    <div data-role="header">
+        <div data-role="navbar">
+            <span>Login</span>
+            <a data-role="button" data-align="right" data-bind="click: clickBtnCancel">Cancel</a>
+        </div>
+    </div>
+</div>

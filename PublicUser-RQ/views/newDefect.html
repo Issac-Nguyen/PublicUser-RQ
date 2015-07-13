@@ -1,0 +1,102 @@
+<!-- View -->
+<div data-role="view" id="report-view" data-title="New Defect"
+     data-model="app.views.newDefect.viewModel"
+     data-init="app.views.newDefect.init"
+     data-show="app.views.newDefect.show"
+     data-transition="overlay:up" data-persist="true">
+    <header data-role="header">
+        <div data-role="navbar">
+            <a class="nav-button" data-align="left" data-role="button" href="#:back" data-bind="events:{click: onClickCancel}" data-transition="overlay:up reverse">Cancel</a>
+            <span data-role="view-title" data-bind="text: name"></span>
+            <a data-align="right" data-role="button" data-bind="events:{click: onClickAdd}">Add</a>
+        </div>
+    </header>
+    <form id="form-newDefect">
+        <ul data-role="listview" data-style="inset" data-type="group">
+            <!-- <li>
+            <label>
+            Name
+            <input name="name" id="name" type="text" data-bind="value: name" required validationMessage="Enter {0}" />
+            </label>
+            </li>
+            <li>
+            <label>
+            Description <textarea name="description" data-bind="value: description" id="description" style="resize: none"></textarea>
+            </label>
+            </li> -->
+            <li>
+                Informartion Building
+                <ul>
+                    <li>
+                        <label>
+                            Building
+                            <select id="drBuilding">
+                                <option value="First Option">First Option</option>
+                                <option value="Second Option">Second Option</option>
+                                <option value="Third Option">Third Option</option>
+                                <option value="Fourth Option">Fourth Option</option>
+                            </select>
+                        </label>
+                    </li>
+                    <li>
+                        <label>
+                            Category
+                            <select id="drCategory">
+                                <option value="First Option">First Option</option>
+                                <option value="Second Option">Second Option</option>
+                                <option value="Third Option">Third Option</option>
+                                <option value="Fourth Option">Fourth Option</option>
+                            </select>
+                        </label>
+                    </li>
+                    <li>
+                        <label>
+                            Sub-Category
+                            <select id="drSubCategory">
+                                <option value="First Option">First Option</option>
+                                <option value="Second Option">Second Option</option>
+                                <option value="Third Option">Third Option</option>
+                                <option value="Fourth Option">Fourth Option</option>
+                            </select>
+                        </label>
+                    </li>
+                    <li>
+                        <label>
+                            Zone
+                            <select id="drZone">
+                                <option value="First Option">First Option</option>
+                                <option value="Second Option">Second Option</option>
+                                <option value="Third Option">Third Option</option>
+                                <option value="Fourth Option">Fourth Option</option>
+                            </select>
+                        </label>
+                    </li>
+                    <li>
+                        <label>
+                            Floor
+                            <select id="drFloor">
+                                <option value="First Option">First Option</option>
+                                <option value="Second Option">Second Option</option>
+                                <option value="Third Option">Third Option</option>
+                                <option value="Fourth Option">Fourth Option</option>
+                            </select>
+                        </label>
+                    </li>
+                    <li>
+                        Expected Completed Date
+                        <input id="expectedCompleteDate" style="width: 100%" />
+                    </li>
+                </ul>
+            </li>
+            <li>
+                Defects Image(s)
+                <ul>
+                    <img src="public/images/image_add.png" width="50" height="50" alt="add_image" data-bind="events:{click: addImage}"/>
+                    <ul id="listImage"></ul>
+                </ul>
+            </li>
+        </ul>
+
+    </form>
+
+</div>

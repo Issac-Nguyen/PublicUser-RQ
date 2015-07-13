@@ -1,0 +1,15 @@
+<!-- View -->
+<div data-role="view" id="defects-view" data-title="Defects"
+		data-layout="mobile-tabstrip"
+        data-init="app.views.defects.init"
+        data-after-show="app.views.defects.afterShow"
+    data-model="app.views.defects.viewModel">
+     <header data-role="header">
+        <div data-role="navbar">
+            <!-- <a class="nav-button" data-align="left" data-role="backbutton">Back</a> -->
+            <span data-role="view-title"></span>
+            <a data-align="right" data-role="button" class="nav-button" href="views/newDefect.html">New Defect</a>
+        </div>
+    </header>
+    <ul id="listDefects"></ul>
+</div>
