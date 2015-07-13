@@ -16,6 +16,7 @@ define(['jQuery', 'kendo', 'app/views/baseView', 'app/common/helper', 'app/commo
 					this.showLoading();
                     //helper.registerPushNotification();
 					 helper.initDatabase(function() {
+                
 					//	 helper.getAllDefectData(function(data) {
 							 //common.defectsList = data;
                       //        self.view().model.initDefectsList(data);
@@ -37,7 +38,7 @@ define(['jQuery', 'kendo', 'app/views/baseView', 'app/common/helper', 'app/commo
 							
 						 //});
 
-					 }, function(){self.hideLoading();});
+					 }, function(e){self.hideLoading();});
 				}
 			});
 

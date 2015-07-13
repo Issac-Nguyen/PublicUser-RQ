@@ -17,18 +17,15 @@ define([], function() {
         }
     }
 
-    function start(successCallback, failureCallback) {
+    function start(sb, eb) {
         // Protect ourselves inside old browsers
         try {
             db = window.sqlitePlugin.openDatabase({name: "publicUser.db", location: 2});
-            //indexedDB = window.indexedDB || window.webkitIndexedDB || window.mozIndexedDB || window.msIndexedDB;
-            //IDBTransaction = window.hasOwnProperty('webkitIndexedDB') ? window.webkitIDBTransaction : window.IDBTransaction;
-            //IDBKeyRange = window.hasOwnProperty('webkitIndexedDB') ? window.webkitIDBKeyRange : window.IDBKeyRange;
         } catch (e) {
-            failureCallback(e);
+            eb(e);
         }
         if (!db) {
-            failureCallback();
+            alert('fail');
             return;
         }
 
@@ -44,6 +41,9 @@ define([], function() {
         }
         
         installModels();
+        
+        if(sb)
+            sb();
     }
     return {
         start: start,
