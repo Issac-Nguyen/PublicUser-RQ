@@ -1,9 +1,9 @@
 <!-- View -->
 <div data-role="view" id="imageDetail-view" data-title="Customize your image"
-    data-model="app.views.imageDetail.viewModel"
-    data-init="app.views.imageDetail.init"
+     data-model="app.views.imageDetail.viewModel"
+     data-init="app.views.imageDetail.init"
      data-show="app.views.imageDetail.show">
-     <header data-role="header">
+    <header data-role="header">
         <div data-role="navbar">
             <a class="nav-button" data-align="left" data-role="button" data-bind="events:{click: onClickBack}">Back</a>
             <span data-role="view-title" data-bind="text: name"></span>
@@ -11,4 +11,18 @@
         </div>
     </header>
     <canvas id="imgDetail"></canvas>
+    <ul data-role="listview" data-style="inset" data-type="group">
+        <li>
+            Description
+            <ul>
+                <li>
+                    <label>
+                        <textarea id="description-imageDetail" data-bind="value: description" style="width: 100%; resize: none"></textarea>
+                    </label>
+                </li>
+            </ul>
+        </li>
+
+    </ul>
+
 </div>

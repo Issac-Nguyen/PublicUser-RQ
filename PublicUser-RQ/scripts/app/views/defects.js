@@ -24,18 +24,7 @@ define(['jQuery', 'kendo', './template/baseTemplate', './defect', '../common/com
     return {
         init: function(initEvt) {
             $("#listDefects").kendoMobileListView({
-                dataSource: kendo.data.DataSource.create({
-                    data: [],
-                    group: {
-                        field: "createdDate",
-                        dir: "desc"
-                    },
-                    change: helper.processAllInSubDefect
-                }),
-                template: baseTemplate.templateDefect,
-                filterable: {
-                    field: "name"
-                },
+                dataSource: this.model.get('listDefects'),
                 click: function(e) {
                     var item = e.dataItem;
                     defectView.setDataDetailToView(item);
@@ -56,15 +45,27 @@ define(['jQuery', 'kendo', './template/baseTemplate', './defect', '../common/com
 
         viewModel: kendo.observable({
             message: 'defects',
+            listDefects: kendo.data.DataSource.create({
+                    data: [],
+                    group: {
+                        field: "createdDate",
+                        dir: "desc"
+                    },
+                    change: helper.processAllInSubDefect
+                }),
+                template: baseTemplate.templateDefect,
+                filterable: {
+                    field: "name"
+                },
             clickNew: function(e) {
                 $("#modalview-login").kendoMobileModalView("open");
             },
             initDefectsList: function(data) {
-                $("#listDefects").data("kendoMobileListView").dataSource.data(data);
+                this.get('listDefects').data(data);
             }
         }),
         insertIntoListDefects: function(objDefect) {
-            $("#listDefects").data("kendoMobileListView").dataSource.add(objDefect);
+            this.viewModel.get('listDefects').add(objDefect);
         },
 
     }

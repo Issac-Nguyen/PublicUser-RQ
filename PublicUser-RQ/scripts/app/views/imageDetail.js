@@ -1,4 +1,4 @@
-define(['kendo', '../phonegap/phonegap', '../common/common', '../common/helper', './newDefect'], function(kendo, phonegap, common, helper, newDefectView) {
+define(['kendo', '../phonegap/phonegap', '../common/common', '../common/helper', '../common/pubsub', './newDefect'], function(kendo, phonegap, common, helper, pubsub, newDefectView) {
     return {
         init: function(initEvt) {
             // ... init event code ...
@@ -25,13 +25,34 @@ define(['kendo', '../phonegap/phonegap', '../common/common', '../common/helper',
 
         viewModel: kendo.observable({
             id: '',
-            name: '',
             dataURL: '',
+            description: '',
 
             onClickBack: function(e) {
+                var self = this;
                 phonegap.writeImageIntoSystem(this.get('dataURL'), $("#imgDetail")[0], function() {
                    $("#listImage").data("kendoMobileListView").refresh();
                     //newDefectView.refreshListImage();
+                    var objHandle = {};
+                    objHandle.id = 'views/newDefect.html';
+                    var objImage = {};
+                    objImage.id = self.get('id');
+                    objImage.dataURL = self.get('dataURL');
+                    objImage.description = self.get('description');
+                    
+                    objHandle.fn = function() {
+                         var arrImage = this.model.get('listImage').data();
+                         for(var i = 0; i < arrImage.length; i++) {
+                             var item = arrImage[i];
+                             if(item.id = objImage.id)
+                                 item.dataURL = objImage.dataURL;
+                                 item.description = objImage.description;
+                         }
+                    }
+                    
+                    objHandle.processed = 0;
+
+                    pubsub.addIntohandleArr(objHandle);
                     helper.goBack();
                 });
 
@@ -40,6 +61,7 @@ define(['kendo', '../phonegap/phonegap', '../common/common', '../common/helper',
         setDataIntoView: function(obj) {
             this.viewModel.set('id', obj.id);
             this.viewModel.set('dataURL', obj.dataURL);
+            this.viewModel.set('description', obj.description);
         }
     }
 });

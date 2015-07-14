@@ -30,61 +30,41 @@
                     <li>
                         <label>
                             Building
-                            <select id="drBuilding">
-                                <option value="First Option">First Option</option>
-                                <option value="Second Option">Second Option</option>
-                                <option value="Third Option">Third Option</option>
-                                <option value="Fourth Option">Fourth Option</option>
+                            <select id="drBuilding" data-bind="value: vlBuilding" required validationMessage="Please select...">
                             </select>
                         </label>
                     </li>
                     <li>
                         <label>
                             Category
-                            <select id="drCategory">
-                                <option value="First Option">First Option</option>
-                                <option value="Second Option">Second Option</option>
-                                <option value="Third Option">Third Option</option>
-                                <option value="Fourth Option">Fourth Option</option>
+                            <select id="drCategory" data-bind="value: vlCategory" required validationMessage="Please select...">
                             </select>
                         </label>
                     </li>
                     <li>
                         <label>
                             Sub-Category
-                            <select id="drSubCategory">
-                                <option value="First Option">First Option</option>
-                                <option value="Second Option">Second Option</option>
-                                <option value="Third Option">Third Option</option>
-                                <option value="Fourth Option">Fourth Option</option>
+                            <select id="drSubCategory" data-bind="value: vlSubCategory" required validationMessage="Please select...">
                             </select>
                         </label>
                     </li>
                     <li>
                         <label>
                             Zone
-                            <select id="drZone">
-                                <option value="First Option">First Option</option>
-                                <option value="Second Option">Second Option</option>
-                                <option value="Third Option">Third Option</option>
-                                <option value="Fourth Option">Fourth Option</option>
+                            <select id="drZone" data-bind="value: vlZone" required validationMessage="Please select...">
                             </select>
                         </label>
                     </li>
                     <li>
                         <label>
                             Floor
-                            <select id="drFloor">
-                                <option value="First Option">First Option</option>
-                                <option value="Second Option">Second Option</option>
-                                <option value="Third Option">Third Option</option>
-                                <option value="Fourth Option">Fourth Option</option>
+                            <select id="drFloor" data-bind="value: vlFloor" required validationMessage="Please select...">
                             </select>
                         </label>
                     </li>
                     <li>
                         Expected Completed Date
-                        <input id="expectedCompleteDate" style="width: 100%" />
+                        <input id="expectedCompleteDate" data-bind="value: vlExpetedCompletedDate" style="width: 100%" />
                     </li>
                 </ul>
             </li>

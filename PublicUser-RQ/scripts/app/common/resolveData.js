@@ -8,6 +8,7 @@ define(["jQuery", './database'], function($, database) {
 			url: options.apiURL,
 			dataType: options.format,
 			method: options.method,
+            data: options.data,
 			jsonpCallback: options.jsonpCallback,
 			success: options.successCallback || renderData,
 			error: options.errorCallback,

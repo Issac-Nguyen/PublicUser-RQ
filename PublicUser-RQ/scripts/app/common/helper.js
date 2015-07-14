@@ -33,6 +33,9 @@ define(['./common', './resolveData', './sqlite', './pubsub'], function(common, r
         return localStorage[pro];
     }
     
+    
+   
+    
     function registerPushNotification() {
         
         //pushPlugin.registerUserNotificationSettings(
@@ -95,29 +98,44 @@ define(['./common', './resolveData', './sqlite', './pubsub'], function(common, r
     
     function checkInternet() {
 
-    var networkState = navigator.connection.type;
+        var networkState = navigator.connection.type;
 
-    if(networkState == Connection.NONE) {
+        if(networkState == Connection.NONE) {
 
-        //onConnexionError();
-        return false;
+            //onConnexionError();
+            return false;
 
-    } else {
+        } else {
 
-       return true;
+           return true;
+        }
     }
-}
+    
+     function uploadDefectToServer(data, sb) {
+        if(checkInternet())
+            resolveData.getDataAjax({
+                url: common.urlServerData,
+                data: data,
+                method: "POST",
+                success: sb,
+                eb: handlerErr
+            });
+    }
 
     return {
         handlerErr: handlerErr,
         timestampString: function() {
             return Math.floor(Date.now());
         },
-        currentDate: function() {
-            var today = new Date();
-            var dd = today.getDate();
-            var mm = today.getMonth() + 1; //January is 0!
-            var yyyy = today.getFullYear();
+        formatDate: function(dateOb) {
+            var dateObj;
+            if(dateOb)
+                dateObj = dateOb;
+            else
+             dateObj = new Date();
+            var dd = dateObj.getDate();
+            var mm = dateObj.getMonth() + 1; //January is 0!
+            var yyyy = dateObj.getFullYear();
 
             if (dd < 10) {
                 dd = '0' + dd
@@ -127,9 +145,9 @@ define(['./common', './resolveData', './sqlite', './pubsub'], function(common, r
                 mm = '0' + mm
             }
 
-            today = dd + '/' + mm + '/' + yyyy;
+            dateObj = dd + '/' + mm + '/' + yyyy;
 
-            return today;
+            return dateObj;
         },
         currentTime: function() {
             var time = new Date();
@@ -407,8 +425,9 @@ define(['./common', './resolveData', './sqlite', './pubsub'], function(common, r
         processAllInSubDefect: pubsub.processAllInSubDefect,
         addIntoSubDefect: pubsub.addIntoSubDefect,
         removeFromSubDefect: pubsub.removeFromSubDefect,
-checkInternet: checkInternet,
+        checkInternet: checkInternet,
         getDataAjax: resolveData.getDataAjax,
-        registerPushNotification: registerPushNotification
+        registerPushNotification: registerPushNotification,
+        uploadDefectToServer: uploadDefectToServer
     }
 });
