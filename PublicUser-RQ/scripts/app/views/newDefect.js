@@ -83,7 +83,7 @@ define(['kendo', '../common/UI', '../phonegap/phonegap', '../common/common', '..
                     return;
                 var self = this;
                 var objDefect = {};
-                objDefect.id = this.get('id');
+                objDefect.id = this.get('id').toString();
                 objDefect.building_id = this.get('vlBuilding');
                 objDefect.category_id = this.get('vlCategory');
                 objDefect.subcategory_id = this.get('vlSubCategory');
@@ -94,13 +94,22 @@ define(['kendo', '../common/UI', '../phonegap/phonegap', '../common/common', '..
                 objDefect.arr_image = JSON.stringify(this.get('listImage').data().toJSON());
                 objDefect.createdDate = helper.formatDate();
                 objDefect.createdTime = helper.currentTime();
-                //database.insertInto("defect", objDefect, function(res) {
-                //    helper.uploadDefectToServer(objDefect, function() {
-                        resetModel(self, function() {
-                            defectsView.insertIntoListDefects(objDefect);
-                            helper.goBack();
-                        });
-                    //});
+                database.insertInto("defect", objDefect, function(res) {
+                    //if(helper.checkInternet()) {
+                    //    helper.uploadDefectToServer(objDefect, function(result) {
+                    //        if(result === 'success') {
+                                resetModel(self, function() {
+                                    defectsView.insertIntoListDefects(objDefect);
+                                    helper.goBack();
+                                });
+                    //        }
+                    //    });
+                    //} else {
+                    //    resetModel(self, function() {
+                    //                defectsView.insertIntoListDefects(objDefect);
+                    //                helper.goBack();
+                                }, helper.handleErr);
+                    //}
                 //}, helper.handleErr);
                 //database.insertInto('defects', objDefect, function() {
                 //    resetModel(self, function() {

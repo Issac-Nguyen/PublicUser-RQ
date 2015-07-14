@@ -18,7 +18,7 @@ define(['./common', './resolveData', './sqlite', './pubsub'], function(common, r
     }
 
     function getAllDefectData(successCallback) {
-        resolveData.getDataIndexedDB('defects', successCallback);
+        resolveData.getDataIndexedDB('defect', successCallback);
     }
     
     function initDatabase(cb) {
@@ -76,6 +76,10 @@ define(['./common', './resolveData', './sqlite', './pubsub'], function(common, r
                 if (e.badge) {
 					alert('badge');
                 }
+        
+        		if(e.payload) {
+                    setLocalStorage('payload', e.payload);
+                }
             }
     
     
@@ -112,13 +116,12 @@ define(['./common', './resolveData', './sqlite', './pubsub'], function(common, r
     }
     
      function uploadDefectToServer(data, sb) {
-        if(checkInternet())
-            resolveData.getDataAjax({
-                url: common.urlServerData,
+            resolveData.getDataAjax({ 
+                apiURL: common.urlServerData + "/uploadDefect",
                 data: data,
                 method: "POST",
-                success: sb,
-                eb: handlerErr
+                successCallback: sb,
+                errorCallback: null
             });
     }
 
@@ -156,15 +159,15 @@ define(['./common', './resolveData', './sqlite', './pubsub'], function(common, r
             var ss = time.getSeconds();
 
             if (hh < 10) {
-                hh = '0' + dd
+                hh = '0' + hh;
             }
 
             if (mm < 10) {
-                mm = '0' + mm
+                mm = '0' + mm;
             }
 
             if (ss < 10) {
-                ss = '0' + mm
+                ss = '0' + ss;
             }
 
             time = hh + ':' + mm + ':' + ss;

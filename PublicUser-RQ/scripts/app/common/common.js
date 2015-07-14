@@ -4,7 +4,7 @@ define([], function() {
 	var windowHeight = window.innerHeight;
     var objIntervalProcessDefect;
     
-   // var pushPlugin = window.plugins.pushNotification;
+    //var pushPlugin = window.plugins.pushNotification;
     
     var readAction = {
     identifier: 'READ_IDENTIFIER', // mandatory

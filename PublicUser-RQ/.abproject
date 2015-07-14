@@ -2,7 +2,7 @@
   "ProjectName": "PublicUser-RQ",
   "ProjectGuid": "db301141-f24a-4414-b7db-e0c27f1762c8",
   "projectVersion": 1,
-  "AppIdentifier": "com.phatnguyen.t",
+  "AppIdentifier": "com.phatnguyen.test1",
   "DisplayName": "PublicUser-RQ",
   "Author": "",
   "Description": "PublicUser-RQ",
@@ -19,8 +19,7 @@
     "android.permission.INTERNET"
   ],
   "DeviceOrientations": [
-    "Portrait",
-    "Landscape"
+    "Portrait"
   ],
   "AndroidHardwareAcceleration": "false",
   "iOSStatusBarStyle": "Default",

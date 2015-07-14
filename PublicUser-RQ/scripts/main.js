@@ -29,6 +29,8 @@ require(['app/app'], function(application) {
   }
 
   document.addEventListener("deviceready", onDeviceReady, false);
+    
+  document.addEventListener("resume", function(){alert(localStorage.payload)}, false);
   //app.init();
 });
 

@@ -61,7 +61,16 @@ define(['jQuery', 'kendo', './template/baseTemplate', './defect', '../common/com
                 $("#modalview-login").kendoMobileModalView("open");
             },
             initDefectsList: function(data) {
-                this.get('listDefects').data(data);
+                if(data.rows.length == 0)
+                    return;
+                var dataArr = [];
+                for(var i = 0; i < data.rows.length; i++) {
+                    var row = data.rows.item(i);
+                    alert(row);
+                    dataArr.push(row);
+                }
+                alert(JSON.stringify(dataArr));
+                this.get('listDefects').data(dataArr);
             }
         }),
         insertIntoListDefects: function(objDefect) {
