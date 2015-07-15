@@ -15,10 +15,10 @@ define(['jQuery', 'kendo', 'app/views/baseView', 'app/common/helper', 'app/commo
 					var self = this;
 					this.showLoading();
                     //helper.registerPushNotification();
-					helper.initDatabase(function() {
+					//helper.initDatabase(function() {
                 
-						 helper.getAllDefectData(function(data) {
-                              self.view().model.initDefectsList(data);
+						 //helper.getAllDefectData(function(data) {
+                              //self.view().model.initDefectsList(data);
 							 //helper.handleAutoProcessDefect();
                           //   if(helper.checkInternet()) {
                                 //helper.getDataAjax({
@@ -35,8 +35,8 @@ define(['jQuery', 'kendo', 'app/views/baseView', 'app/common/helper', 'app/commo
                              //}
 							
 							
-						 });
-                    });
+						 //});
+                    //});
 					 //}, function(e){self.hideLoading();});
 				}
 			});

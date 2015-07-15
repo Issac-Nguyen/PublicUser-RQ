@@ -120,8 +120,9 @@ define(['./common', './resolveData', './sqlite', './pubsub'], function(common, r
                 apiURL: common.urlServerData + "/uploadDefect",
                 data: data,
                 method: "POST",
+                format: "json",
                 successCallback: sb,
-                errorCallback: null
+                errorCallback: handlerErr
             });
     }
 

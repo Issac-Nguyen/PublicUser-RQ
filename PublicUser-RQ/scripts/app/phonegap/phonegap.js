@@ -47,9 +47,11 @@ define(['../common/helper', '../common/common'], function(helper, common) {
                                         }, helper.handlerErr);
             }, helper.handlerErr);
         },
-        uploadFile: function(fieuri, url, sb, eb, options) {
+        uploadFile: function(fileuri, sb, eb, options) {
+            var url = common.urlServerData + "/uploadImage";
             var ft = new FileTransfer();
-            ft.upload(fieuri, encodeURI(url), sb, eb, options);
+            fileuri = "C:\Users\Phat\Documents\Telerik\Icenium\Simulator\Storage\Temporary\public\images\test.jpg"; 
+            ft.upload(fileuri, encodeURI(url), sb, eb, options); 
         },
         downloadFile: function(fieuri, url, sb, eb, options) {
             var fileTransfer = new FileTransfer();
