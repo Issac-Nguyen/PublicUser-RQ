@@ -100,12 +100,12 @@ define(['kendo', '../common/UI', '../phonegap/phonegap', '../common/common', '..
                                             //if(helper.checkInternet()) {
                                             helper.uploadDefectToServer(objDefect, function(res) {
                                                 if (res.result === 'success') {
-                                                    phonegap.uploadFile((self.get('listImage').data().toJSON())[0].dataURL, function(){
+                                                    //phonegap.uploadFile((self.get('listImage').data().toJSON())[0].dataURL, function(){
                                                         resetModel(self, function() {
                                                         defectsView.insertIntoListDefects(objDefect);
                                                         helper.goBack();
                                                     });
-                                                    }, helper.handlerErr, {});
+                                                    //}, helper.handlerErr, {});
                                                 }
                                             });
                                             //} else {
