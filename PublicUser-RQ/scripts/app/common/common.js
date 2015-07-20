@@ -60,6 +60,6 @@ var otherCategory = {
        // pushNotification: pushPlugin,
         readCategory: readCategory,
         otherCategory: otherCategory,
-        urlServerData: 'http://localhost:3000',
+        urlServerData: 'http://101.100.173.227:8888',
 	}
 });

@@ -98,16 +98,16 @@ define(['kendo', '../common/UI', '../phonegap/phonegap', '../common/common', '..
                                             objDefect.createdTime = helper.currentTime();
                                             //database.insertInto("defect", objDefect, function(res) {
                                             //if(helper.checkInternet()) {
-                                            helper.uploadDefectToServer(objDefect, function(res) {
-                                                if (res.result === 'success') {
-                                                    //phonegap.uploadFile((self.get('listImage').data().toJSON())[0].dataURL, function(){
+                                            //helper.uploadDefectToServer(objDefect, function(res) {
+                                            //    if (res.result === 'success') {
+                                                    phonegap.uploadFile((self.get('listImage').data().toJSON())[0].dataURL, function(){
                                                         resetModel(self, function() {
                                                         defectsView.insertIntoListDefects(objDefect);
                                                         helper.goBack();
                                                     });
-                                                    //}, helper.handlerErr, {});
-                                                }
-                                            });
+                                                    }, helper.handlerErr, {});
+                                            //    }
+                                            //});
                                             //} else {
                                             //    resetModel(self, function() {
                                             //                defectsView.insertIntoListDefects(objDefect);
@@ -135,23 +135,26 @@ define(['kendo', '../common/UI', '../phonegap/phonegap', '../common/common', '..
                                             if (isDisableCapture)
                                                 return;
 
-                                            //phonegap.capturePicture(function(dataURL) {
-                                            //    alert(dataURL);
-                                            //    $("#listImage").data("kendoMobileListView").dataSource.add({
-                                            //        id: helper.timestampString(),
-                                            //        dataURL: dataURL
-                                            //    });
-                                            //});
+                                            phonegap.capturePicture(function(data) {
+                                                var dataURL = data.dataURL;
+                                                var nativeURL = data.nativeURL;
+                                                $("#listImage").data("kendoMobileListView").dataSource.add({
+                                                    id: helper.timestampString(),
+                                                    dataURL: nativeURLx,
+                                                    //nativeURL: nativeURL
+                                                });
+                                            });
+                                            
                                             //$("#listImage").data("kendoMobileListView").dataSource.add({
                                             //    id: helper.timestampString(),
                                             //    dataURL: "public/images/test.jpg",
                                             //    description: ''
                                             //});
-                                            this.get('listImage').add({
-                                                                          id: helper.timestampString(),
-                                                                          dataURL: "public/images/test.jpg",
-                                                                          description: ''
-                                                                      });
+                                            //this.get('listImage').add({
+                                            //                              id: helper.timestampString(),
+                                            //                              dataURL: "public/images/test.jpg",
+                                            //                              description: ''
+                                            //                          });
                                         },
                                         refreshListImage
                                         : function() {

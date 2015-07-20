@@ -9,7 +9,7 @@ define(['jQuery', 'kendo', 'app/views/baseView', 'app/common/helper', 'app/commo
 
 			kendo.UserEvents.defaultThreshold(20);
 			_kendoApplication = new kendo.mobile.Application(document.body, {
-				transition: 'slide',
+				//transition: 'slide',
 				useNativeScrolling: true,
 				init: function() {
 					var self = this;

@@ -25,6 +25,10 @@ define(['jQuery', 'kendo', './template/baseTemplate', './defect', '../common/com
         init: function(initEvt) {
             $("#listDefects").kendoMobileListView({
                 dataSource: this.model.get('listDefects'),
+                                template: baseTemplate.templateDefect,
+                filterable: {
+                    field: "name"
+                },
                 click: function(e) {
                     var item = e.dataItem;
                     defectView.setDataDetailToView(item);
@@ -53,10 +57,7 @@ define(['jQuery', 'kendo', './template/baseTemplate', './defect', '../common/com
                     },
                     change: helper.processAllInSubDefect
                 }),
-                template: baseTemplate.templateDefect,
-                filterable: {
-                    field: "name"
-                },
+
             clickNew: function(e) {
                 $("#modalview-login").kendoMobileModalView("open");
             },

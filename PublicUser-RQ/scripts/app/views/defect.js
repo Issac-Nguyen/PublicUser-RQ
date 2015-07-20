@@ -13,11 +13,13 @@ define(['kendo'], function(kendo) {
 		},
 
 		viewModel: kendo.observable({
+            id: 'id',
 			name: 'name',
 			description: 'des'
 		}),
 
 		setDataDetailToView: function(item) {
+            this.viewModel.set('id', item.id);
 			this.viewModel.set('name', item.name);
 			this.viewModel.set('description', item.description);
 		}
