@@ -98,7 +98,8 @@ define(['kendo', '../common/UI', '../phonegap/phonegap', '../common/common', '..
                                             objDefect.floor_name = $("#drFloor :selected").text();
                                             objDefect.expectedDate = helper.formatDate(this.get('vlExpetedCompletedDate'));
                                             //objDefect.defectsArr = $("#listImage").data("kendoMobileListView").dataSource.data().toJSON();
-                                            objDefect.arr_image = JSON.stringify(this.get('listImage').data().toJSON());
+                                            objDefect.arr_imageDefect = JSON.stringify(this.get('listImage').data().toJSON());
+                                            objDefect.arr_imageResolve = "[]";
                                             objDefect.createdDate = helper.formatDate();
                                             objDefect.createdTime = helper.currentTime();
                                             //database.insertInto("defect", objDefect, function(res) {
@@ -141,26 +142,21 @@ define(['kendo', '../common/UI', '../phonegap/phonegap', '../common/common', '..
                                             if (isDisableCapture)
                                                 return;
 
-                                            phonegap.capturePicture(function(data) {
-                                                var dataURL = data.dataURL;
-                                                var nativeURL = data.nativeURL;
-                                                $("#listImage").data("kendoMobileListView").dataSource.add({
-                                                    id: helper.timestampString(),
-                                                    dataURL: nativeURLx,
+                                            //phonegap.capturePicture(function(data) {
+                                            //    var dataURL = data.dataURL;
+                                            //    var nativeURL = data.nativeURL;
+                                            //    $("#listImage").data("kendoMobileListView").dataSource.add({
+                                            //        id: helper.timestampString(),
+                                            //        dataURL: nativeURLx,
                                                     //nativeURL: nativeURL
-                                                });
-                                            });
-                                            
-                                            //$("#listImage").data("kendoMobileListView").dataSource.add({
-                                            //    id: helper.timestampString(),
-                                            //    dataURL: "public/images/test.jpg",
-                                            //    description: ''
+                                            //    });
                                             //});
-                                            //this.get('listImage').add({
-                                            //                              id: helper.timestampString(),
-                                            //                              dataURL: "public/images/test.jpg",
-                                            //                              description: ''
-                                            //                          });
+                                            
+                                            this.get('listImage').add({
+                                                                          id: helper.timestampString(),
+                                                                          dataURL: "public/images/test.jpg",
+                                                                          description: ''
+                                                                      });
                                         },
                                         refreshListImage
                                         : function() {

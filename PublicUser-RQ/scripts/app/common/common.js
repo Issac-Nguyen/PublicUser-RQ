@@ -55,7 +55,7 @@ var otherCategory = {
 		folderImage: 'imgDefects',
         objIntervalProcessDefect: objIntervalProcessDefect,
         intervalProcessDefect: 1000,
-        maximumImageCapture: 1,
+        maximumImageCapture: 2,
         defectsList: [],
        // pushNotification: pushPlugin,
         readCategory: readCategory,
