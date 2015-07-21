@@ -67,6 +67,7 @@ define(['jQuery', 'kendo', './template/baseTemplate', './defect', '../common/com
                 var dataArr = [];
                 for(var i = 0; i < data.rows.length; i++) {
                     var row = data.rows.item(i);
+                    row.arr_image = JSON.parse(row.arr_image);
                     alert(row);
                     dataArr.push(row);
                 }

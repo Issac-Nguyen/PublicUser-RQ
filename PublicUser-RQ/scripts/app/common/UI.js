@@ -35,7 +35,7 @@ define(['kendo', 'jQuery', '../views/template/baseTemplate'], function(kendo, $,
                         },
                         autoHideAfter: 0,
                         stacking: "down",
-                        templates: baseTemplate.templateNotificatoin
+                        templates: baseTemplate.templateNotification
 
                     }).data("kendoNotification");
        

@@ -88,7 +88,7 @@ define([], function() {
                tx.executeSql('CREATE TABLE IF NOT EXISTS SubCategory (id text primary key, Category_id text, name text, description text)'); 
                tx.executeSql('CREATE TABLE IF NOT EXISTS Zone (id text primary key, building_id text, name text, description text)'); 
                tx.executeSql('CREATE TABLE IF NOT EXISTS Floor (id text primary key, building_id text, name text, description text)'); 
-               tx.executeSql('CREATE TABLE IF NOT EXISTS defect (id text primary key, building_id text, category_id text, subcategory_id text, zone_id text, floor_id text, expectedDate text, arr_image text, arr_imageResolve text, createdDate text, createdTime text)'); 
+               tx.executeSql('CREATE TABLE IF NOT EXISTS defect (id text primary key, building_id text, building_name text, category_id text, category_name text, subcategory_id text, subcategory_name text, zone_id text, zone_name text, floor_id text, floor_name text, expectedDate text, arr_image text, arr_imageResolve text, createdDate text, createdTime text)'); 
             }, eb);
         }
         

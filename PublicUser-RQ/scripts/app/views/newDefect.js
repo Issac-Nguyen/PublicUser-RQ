@@ -87,10 +87,15 @@ define(['kendo', '../common/UI', '../phonegap/phonegap', '../common/common', '..
                                             var objDefect = {};
                                             objDefect.id = this.get('id').toString();
                                             objDefect.building_id = this.get('vlBuilding');
+                                            objDefect.building_name = $("#drBuilding :selected").text();
                                             objDefect.category_id = this.get('vlCategory');
+                                            objDefect.category_name = $("#drCategory :selected").text();
                                             objDefect.subcategory_id = this.get('vlSubCategory');
+                                            objDefect.subcategory_name = $("#drSubCategory :selected").text();
                                             objDefect.zone_id = this.get('vlZone');
+                                            objDefect.zone_name = $("#drZone :selected").text();
                                             objDefect.floor_id = this.get('vlFloor');
+                                            objDefect.floor_name = $("#drFloor :selected").text();
                                             objDefect.expectedDate = helper.formatDate(this.get('vlExpetedCompletedDate'));
                                             //objDefect.defectsArr = $("#listImage").data("kendoMobileListView").dataSource.data().toJSON();
                                             objDefect.arr_image = JSON.stringify(this.get('listImage').data().toJSON());
@@ -100,12 +105,12 @@ define(['kendo', '../common/UI', '../phonegap/phonegap', '../common/common', '..
                                             //if(helper.checkInternet()) {
                                             //helper.uploadDefectToServer(objDefect, function(res) {
                                             //    if (res.result === 'success') {
-                                                    phonegap.uploadFile((self.get('listImage').data().toJSON())[0].dataURL, function(){
+                                                   // phonegap.uploadFile((self.get('listImage').data().toJSON())[0].dataURL, function(){
                                                         resetModel(self, function() {
                                                         defectsView.insertIntoListDefects(objDefect);
                                                         helper.goBack();
                                                     });
-                                                    }, helper.handlerErr, {});
+                                                    //}, helper.handlerErr, {});
                                             //    }
                                             //});
                                             //} else {
@@ -125,6 +130,7 @@ define(['kendo', '../common/UI', '../phonegap/phonegap', '../common/common', '..
                                         },
                                         addImage
                                         : function(e) {
+                                            UI.showNotification({message: 'message', type: 'info'});
                                             var self = this;
 
                                             //if ($("#listImage").data("kendoMobileListView"))

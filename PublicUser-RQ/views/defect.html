@@ -10,6 +10,70 @@
             <!--<a data-align="right" data-role="button" class="nav-button" href="#/">Index</a> -->
         </div>
     </header>
-    <h3 data-bind="text: description" ></h3>
+    <ul data-role="listview" data-style="inset" data-type="group">
+            <!-- <li>
+            <label>
+            Name
+            <input name="name" id="name" type="text" data-bind="value: name" required validationMessage="Enter {0}" />
+            </label>
+            </li>
+            <li>
+            <label>
+            Description <textarea name="description" data-bind="value: description" id="description" style="resize: none"></textarea>
+            </label>
+            </li> -->
+            <li>
+                Informartion Building
+                <ul>
+                    <li>
+                        <label>
+                            Building
+                            <input type="text" data-bind="value: building_name" required disabled="disabled"/>
+                        </label>
+                    </li>
+                    <li>
+                        <label>
+                            Category
+                            <input type="text" data-bind="value: category_name" required disabled="disabled" />
+                        </label>
+                    </li>
+                    <li>
+                        <label>
+                            Sub-Category
+                            <input type="text" data-bind="value: subcategory_name" required disabled="disabled"/>
+                        </label>
+                    </li>
+                    <li>
+                        <label>
+                            Zone
+                            <input type="text" data-bind="value: zone_name" required disabled="disabled" />
+                        </label>
+                    </li>
+                    <li>
+                        <label>
+                            Floor
+                            <input type="text" data-bind="value: floor_name" required  disabled="disabled"/>
+                        </label>
+                    </li>
+                    <li>
+                        Expected Completed Date
+                        <input type="text" id="expectedCompleteDate" data-bind="value: expectedCompeletedDate"  disabled="disabled"/>
+                            
+                    </li>
+                </ul>
+            </li>
+            <li>
+                Defects Image(s)
+                <ul>
+                    <ul id="listImageDefect"></ul>
+                </ul>
+            </li>
+            <li>
+                Resolved Image(s)
+                <ul>
+                    <ul id="listImageResolve"></ul>
+                </ul>
+            </li>
+        </ul>
 </div>
     

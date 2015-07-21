@@ -13,11 +13,8 @@ define(['../common/helper', '../common/common'], function(helper, common) {
                                                       function(directory) {
                                                           fileEntry.moveTo(directory, helper.timestampString() + '.jpg', function(etr) {
                                                               //alert(JSON.stringify(etr));
-                                                              //callback(etr.fullPath.substr(1));
                                                               callback({nativeURL: etr.nativeURL, dataURL: etr.fullPath.substr(1)});
-                                                              //callback(etr.fullPath);
                                                           }, helper.handlerErr);
-                                						//callback(imageURL);
                                                       },
                                                       helper.handlerErr);
                         },
@@ -33,20 +30,20 @@ define(['../common/helper', '../common/common'], function(helper, common) {
         },
         writeImageIntoSystem: function(url, canvas, cb) {
             //window.requestFileSystem(LocalFileSystem.PERSISTENT, 0, function(fileSystem) {
-                //fileSystem.root.getFile(url, {
-                //                            create: true,
-                //                            exclusive: false
-                //                        }, function(fileEntry) {
+            //fileSystem.root.getFile(url, {
+            //                            create: true,
+            //                            exclusive: false
+            //                        }, function(fileEntry) {
             window.resolveLocalFileSystemURI(url, function(fileEntry) {
-                                            fileEntry.createWriter(function(writer) {
-                                                //alert(canvas.toDataURL('image/jpeg', 1));
-                                                writer.onwrite = function(evt) {
-                                                    if (cb)
-                                                        cb();
-                                                }
-                                                writer.write(helper.convertDataURIToBlob(canvas.toDataURL('image/jpeg', 1), 'image/jpeg'));
-                                            }, helper.handlerErr);
-                                        }, helper.handlerErr);
+                fileEntry.createWriter(function(writer) {
+                    //alert(canvas.toDataURL('image/jpeg', 1));
+                    writer.onwrite = function(evt) {
+                        if (cb)
+                            cb();
+                    }
+                    writer.write(helper.convertDataURIToBlob(canvas.toDataURL('image/jpeg', 1), 'image/jpeg'));
+                }, helper.handlerErr);
+            }, helper.handlerErr);
             //}, helper.handlerErr);
         },
         uploadFile: function(fileuri, sb, eb) {
@@ -76,9 +73,10 @@ define(['../common/helper', '../common/common'], function(helper, common) {
                 false,
                 options
                 );
-        }
-    },
+        },
         exitApp: function() {
             navigator.app.exitApp();
         }
-});
+    }
+}
+    );

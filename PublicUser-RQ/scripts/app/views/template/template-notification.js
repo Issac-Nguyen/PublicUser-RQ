@@ -10,9 +10,9 @@ define([], function() {
            template: '<h4>Warning</h4><b>${message}</b>'
            },
            {
-           type: 'info',
+           type: 'error',
            template: '<h4>Error</h4><b>${message}</b>'
            },
-       ]'
+       ]
    }
 })

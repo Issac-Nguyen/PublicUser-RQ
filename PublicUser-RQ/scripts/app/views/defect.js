@@ -14,8 +14,17 @@ define(['kendo'], function(kendo) {
 
 		viewModel: kendo.observable({
             id: 'id',
-			name: 'name',
-			description: 'des'
+			building_id: '',
+            building_name: '',
+            category_id: '',
+            category_name: '',
+            subcategory_id: '',
+            subcategory_name: '',
+            zone_id: '',
+            zone_name: '',
+            floor_id: '',
+            floor_name: '',
+            expectedCompeletedDate: '',
 		}),
 
 		setDataDetailToView: function(item) {
