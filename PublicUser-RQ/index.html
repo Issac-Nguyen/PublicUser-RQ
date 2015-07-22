@@ -5,6 +5,7 @@
    <!-- <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, user-scalable=no, target-densitydpi=device-dpi" /> -->
 	<title> Defect Management - Public User </title>
     <script src="cordova.js"></script>
+    <script src="scripts/libs/date.js"></script>
 	<script data-main="scripts/main" src="scripts/libs/require.js"></script>
     <link href="./public/styles/kendo.common.min.css" rel="stylesheet">
     <link href="./public/styles/kendo.default.min.css" rel="stylesheet">
@@ -40,6 +41,7 @@
 <div data-role="view" id="defects-view" data-title="Defects"
 		data-layout="mobile-tabstrip"
         data-init="app.views.defects.init"
+        data-before-show="app.views.defects.beforeShow"
         data-after-show="app.views.defects.afterShow"
     data-model="app.views.defects.viewModel">
      <header data-role="header">

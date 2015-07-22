@@ -33,7 +33,10 @@ define(['./common', './resolveData', './sqlite', './pubsub'], function(common, r
         return localStorage[pro];
     }
     
-    
+    function handleSystemTimeout(fn) {
+        pubsub.addIntoSystemArr(fn);
+        common.objIntervalProcessSystem = setInterval(pubsub.processAllInSystemArr, common.intervalProcessSystem);
+    }
    
     
     function registerPushNotification() {
@@ -432,6 +435,7 @@ define(['./common', './resolveData', './sqlite', './pubsub'], function(common, r
         checkInternet: checkInternet,
         getDataAjax: resolveData.getDataAjax,
         registerPushNotification: registerPushNotification,
-        uploadDefectToServer: uploadDefectToServer
+        uploadDefectToServer: uploadDefectToServer,
+handleSystemTimeout:handleSystemTimeout
     }
 });

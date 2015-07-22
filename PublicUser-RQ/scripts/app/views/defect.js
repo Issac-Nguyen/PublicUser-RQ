@@ -1,4 +1,4 @@
-define(['jQuery', 'kendo', './imageDetail'], function($, kendo, imageDetailView) {
+define(['jQuery', 'kendo', './imageDetailDefect'], function($, kendo, imageDetailDefectView) {
 	return {
 		init: function(initEvt) {
 			// ... init event code ...
@@ -8,7 +8,7 @@ define(['jQuery', 'kendo', './imageDetail'], function($, kendo, imageDetailView)
                                                     click: function(e) {
                                                         //alert(JSON.stringify(e.dataItem));
                                                         var item = e.dataItem;
-                                                        imageDetailView.setDataIntoView(item);
+                                                        imageDetailDefectView.setDataIntoView(item);
                                                     }
                                                 });
             
@@ -18,7 +18,7 @@ define(['jQuery', 'kendo', './imageDetail'], function($, kendo, imageDetailView)
                                                     click: function(e) {
                                                         //alert(JSON.stringify(e.dataItem));
                                                         var item = e.dataItem;
-                                                        imageDetailView.setDataIntoView(item);
+                                                        imageDetailDefectView.setDataIntoView(item);
                                                     }
                                                 });
 		},

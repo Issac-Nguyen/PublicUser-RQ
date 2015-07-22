@@ -1,4 +1,4 @@
-define(['kendo', '../common/UI', '../phonegap/phonegap', '../common/common', '../common/sqlite', '../common/helper', '../common/pubsub', './template/baseTemplate', './defects', './imageDetail'], function(kendo, UI, phonegap, common, database, helper, pubsub, baseTemplate, defectsView, imageDetailView) {
+define(['kendo', '../common/UI', '../phonegap/phonegap', '../common/common', '../common/sqlite', '../common/helper', '../common/pubsub', './template/baseTemplate','./imageDetail'], function(kendo, UI, phonegap, common, database, helper, pubsub, baseTemplate, imageDetailView) {
     var isDisableCapture = false;
     var validator;
 
@@ -108,7 +108,10 @@ define(['kendo', '../common/UI', '../phonegap/phonegap', '../common/common', '..
                                             //    if (res.result === 'success') {
                                                    // phonegap.uploadFile((self.get('listImage').data().toJSON())[0].dataURL, function(){
                                                         resetModel(self, function() {
-                                                        defectsView.insertIntoListDefects(objDefect);
+                                                        //defectsView.insertIntoListDefects(objDefect);
+                                                            pubsub.addIntohandleArr({id: '/', fn: function() {
+                                                                this.model.get('listDefects').add(objDefect);
+                                                            }});
                                                         helper.goBack();
                                                     });
                                                     //}, helper.handlerErr, {});

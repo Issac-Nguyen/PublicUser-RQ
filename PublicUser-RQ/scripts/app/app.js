@@ -50,7 +50,8 @@ define(['jQuery', 'kendo', 'app/views/baseView', 'app/common/helper', 'app/commo
 			report: baseView.reportView,
 			setting: baseView.settingView,
 			newDefect: baseView.newDefectView,
-			imageDetail: baseView.imageDetailView
+			imageDetail: baseView.imageDetailView,
+            imageDetailDefect: baseView.imageDetailDefectView
 		}
 	}
 });

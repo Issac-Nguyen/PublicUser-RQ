@@ -1,0 +1,28 @@
+<!-- View -->
+<div data-role="view" id="imageDetail-view" data-title="Customize your image"
+     data-model="app.views.imageDetailDefect.viewModel"
+     data-init="app.views.imageDetailDefect.init"
+     data-show="app.views.imageDetailDefect.show">
+    <header data-role="header">
+        <div data-role="navbar">
+            <a class="nav-button" data-align="left" data-role="button" data-bind="events:{click: onClickBack}">Back</a>
+            <span data-role="view-title" data-bind="text: name"></span>
+            <!--<a data-align="right" data-role="button" class="nav-button" href="#/">Index</a> -->
+        </div>
+    </header>
+    <img data-bind="src: dataURL" alt="image" />
+    <ul data-role="listview" data-style="inset" data-type="group">
+        <li>
+            Description
+            <ul>
+                <li>
+                    <label>
+                        <textarea id="description-imageDetail" data-bind="value: description" style="width: 100%; resize: none"></textarea>
+                    </label>
+                </li>
+            </ul>
+        </li>
+
+    </ul>
+
+</div>

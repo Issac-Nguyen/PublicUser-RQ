@@ -1,4 +1,4 @@
-define(['jQuery', 'kendo', './template/baseTemplate', './defect', '../common/common', '../common/helper'], function($, kendo, baseTemplate, defectView, common, helper) {
+define(['jQuery', 'kendo', './template/baseTemplate', './defect', '../common/common', '../common/helper', '../common/pubsub', '../common/sqlite'], function($, kendo, baseTemplate, defectView, common, helper, pubsub, database) {
 
     //var groupedData1 = [
     //    {id: 1, name: "Sashimi salad", createdDate: "07/07/2015", createdDate1: "20150707" },
@@ -34,10 +34,41 @@ define(['jQuery', 'kendo', './template/baseTemplate', './defect', '../common/com
                     defectView.setDataDetailToView(item);
                 }
             });
+            
+            var self = this;
+            
+            
+            helper.handleSystemTimeout(function(callback){
+                var updateMsg = "";
+                var arrDefect = self.model.get('listDefects').data().toJSON();
+                var isChange = false;
+                for(var i = 0; i < arrDefect.length; i++) {
+                    var item = arrDefect[i];
+                    var defectTime = common.defectColorAfter.red;
+                    var newDay = Date.parse(item.createdDate + " " + item.createdTime).add({seconds: defectTime});
+                    
+                    if(newDay.compareTo(new Date()) <= 0 && item.color != common.colorRed) {
+                         self.model.get('listDefects').at(i).color= common.colorRed;
+                        isChange = true;
+                        updateMsg = "UPDATE defect set color='" + common.colorRed +"' where id='"+item.id +"';";
+                        
+                        }
+                }
+                
+                if(isChange)
+                $("#listDefects").data("kendoMobileListView").refresh();
+                
+                //if(updateMsg !== "")
+                    //database.executeSQL(updateMsg, undefined, helper.handlerErr);
+                
+                if(callback)
+                callback();
+            });
         },
 
         beforeShow: function(beforeShowEvt) {
             // ... before show event code ...
+            pubsub.processAllInHandleArr(this.id, this);
         },
 
         show: function(showEvt) {

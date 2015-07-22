@@ -1,27 +1,14 @@
 define([], function() {
     var db;
 
-    function executeSQL(sqlString, data, successCallback, eb) {
-        if(data) {
-            var dataArr = [];
-            for(i in data) {
-                dataArr.push(data[i]);
-            }
-            if(dataArr.length == 0)
-            return;
-         db.transaction(function(tx) {
-             tx.executeSql(sqlString, dataArr, function(tx1, res) {
-                 successCallback(res);
-                 }, eb);
-             }, eb);
-        } else {
+    function executeSQL(sqlString, successCallback, eb) {
             db.transaction(function(tx) {
              tx.executeSql(sqlString, function(tx1, res) {
+                 if(successCallback)
                  successCallback(res);
                  }, eb);
              }, eb);
         }
-    }
     
     function insertInto(table, data, sb, eb) {
         if(data) {
@@ -88,7 +75,7 @@ define([], function() {
                tx.executeSql('CREATE TABLE IF NOT EXISTS SubCategory (id text primary key, Category_id text, name text, description text)'); 
                tx.executeSql('CREATE TABLE IF NOT EXISTS Zone (id text primary key, building_id text, name text, description text)'); 
                tx.executeSql('CREATE TABLE IF NOT EXISTS Floor (id text primary key, building_id text, name text, description text)'); 
-               tx.executeSql('CREATE TABLE IF NOT EXISTS defect (id text primary key, building_id text, building_name text, category_id text, category_name text, subcategory_id text, subcategory_name text, zone_id text, zone_name text, floor_id text, floor_name text, expectedDate text, arr_imageDefect text, arr_imageResolve text, createdDate text, createdTime text)'); 
+               tx.executeSql('CREATE TABLE IF NOT EXISTS defect (id text primary key, building_id text, building_name text, category_id text, category_name text, subcategory_id text, subcategory_name text, zone_id text, zone_name text, floor_id text, floor_name text, expectedDate text, arr_imageDefect text, arr_imageResolve text, color text, createdDate text, createdTime text)'); 
             }, eb);
         }
         

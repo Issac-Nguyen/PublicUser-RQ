@@ -1,4 +1,4 @@
-define(['kendo', '../phonegap/phonegap', '../common/common', '../common/helper', '../common/pubsub', './newDefect'], function(kendo, phonegap, common, helper, pubsub, newDefectView) {
+define(['kendo', '../phonegap/phonegap', '../common/common', '../common/helper', '../common/pubsub',], function(kendo, phonegap, common, helper, pubsub) {
     return {
         init: function(initEvt) {
             // ... init event code ...
@@ -31,7 +31,8 @@ define(['kendo', '../phonegap/phonegap', '../common/common', '../common/helper',
             onClickBack: function(e) {
                 var self = this;
                 phonegap.writeImageIntoSystem(this.get('dataURL'), $("#imgDetail")[0], function() {
-                   $("#listImage").data("kendoMobileListView").refresh();
+                   //$("#listImage").data("kendoMobileListView").refresh();
+                    
                     //newDefectView.refreshListImage();
                     var objHandle = {};
                     objHandle.id = 'views/newDefect.html';
