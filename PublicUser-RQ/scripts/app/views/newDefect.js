@@ -100,6 +100,7 @@ define(['kendo', '../common/UI', '../phonegap/phonegap', '../common/common', '..
                                             //objDefect.defectsArr = $("#listImage").data("kendoMobileListView").dataSource.data().toJSON();
                                             objDefect.arr_imageDefect = JSON.stringify(this.get('listImage').data().toJSON());
                                             objDefect.arr_imageResolve = "[]";
+                                            objDefect.color = "white",
                                             objDefect.createdDate = helper.formatDate();
                                             objDefect.createdTime = helper.currentTime();
                                             //database.insertInto("defect", objDefect, function(res) {
@@ -108,6 +109,8 @@ define(['kendo', '../common/UI', '../phonegap/phonegap', '../common/common', '..
                                             //    if (res.result === 'success') {
                                                    // phonegap.uploadFile((self.get('listImage').data().toJSON())[0].dataURL, function(){
                                                         resetModel(self, function() {
+                                                            objDefect.arr_imageDefect = self.get('listImage').data().toJSON();
+                                                            objDefect.arr_imageResolve = [];
                                                         //defectsView.insertIntoListDefects(objDefect);
                                                             pubsub.addIntohandleArr({id: '/', fn: function() {
                                                                 this.model.get('listDefects').add(objDefect);

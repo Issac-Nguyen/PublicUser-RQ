@@ -46,3 +46,11 @@ ul.singlerowLi li{
 ul.singlerowLi {
     list-style: none;
 }
+
+.km-android input{
+ color: #1C35E9;   
+}
+
+.noDisplay {
+    display: none;
+}

@@ -2,6 +2,7 @@
 <div data-role="view" id="defects-view" data-title="Defects"
 		data-layout="mobile-tabstrip"
         data-init="app.views.defects.init"
+        data-show="app.views.defects.show"
         data-after-show="app.views.defects.afterShow"
     data-model="app.views.defects.viewModel">
      <header data-role="header">
@@ -11,5 +12,6 @@
             <a data-align="right" data-role="button" class="nav-button" href="views/newDefect.html">New Defect</a>
         </div>
     </header>
+    
     <ul id="listDefects"></ul>
 </div>

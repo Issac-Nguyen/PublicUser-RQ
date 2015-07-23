@@ -3,6 +3,11 @@ define([], function() {
     var handleArr = [];
     var systemArr = [];
     var isProcessingSystemArr = false;
+    
+    function cbProcessing() {
+               isProcessingSystemArr = false;
+           }
+    
    return {
        addIntoSubDefect: function(obj) {
            arrSubDefect.push(obj);
@@ -51,9 +56,9 @@ define([], function() {
            this.removeFromHandleArr();
        },
        processAllInSystemArr: function(obj) {
-           function cbProcessing() {
-               isProcessingSystemArr = false;
-           }
+           if(isProcessingSystemArr)
+               return;
+           console.log('processAllInSystemArr');
            //addIntoSystemArr(obj);
            isProcessingSystemArr = true;
            systemArr[0](cbProcessing);

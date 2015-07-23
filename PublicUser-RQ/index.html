@@ -41,6 +41,7 @@
 <div data-role="view" id="defects-view" data-title="Defects"
 		data-layout="mobile-tabstrip"
         data-init="app.views.defects.init"
+        data-show="app.views.defects.show"
         data-before-show="app.views.defects.beforeShow"
         data-after-show="app.views.defects.afterShow"
     data-model="app.views.defects.viewModel">
@@ -51,6 +52,14 @@
             <a data-align="right" data-role="button" class="nav-button" href="views/newDefect.html">New Defect</a>
         </div>
     </header>
+    
+    <form class="km-filter-form" id="filterForm">
+        <div class="km-filter-wrap">
+            <input type="search" placeholder="Search..." id="searchDefect" data-bind="events:{keyup: inputFilter}"/>
+            <a href="#" class="km-filter-reset noDisplay" id="clearSearch" data-bind="events:{click: clearFilterInput}" title="Clear" style="position: absolute; right:30px;">
+            <span class="km-icon km-clear" style="top: -40%;"></span>
+            <span class="km-text">Clear</span></a>
+            </div></form>
     <ul id="listDefects"></ul>
 </div>
       

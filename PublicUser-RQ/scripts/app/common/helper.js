@@ -128,6 +128,10 @@ define(['./common', './resolveData', './sqlite', './pubsub'], function(common, r
                 errorCallback: handlerErr
             });
     }
+    
+    function gotoURL(url) {
+        app.getAppObj().navigate(url);
+    }
 
     return {
         handlerErr: handlerErr,
@@ -436,6 +440,7 @@ define(['./common', './resolveData', './sqlite', './pubsub'], function(common, r
         getDataAjax: resolveData.getDataAjax,
         registerPushNotification: registerPushNotification,
         uploadDefectToServer: uploadDefectToServer,
-handleSystemTimeout:handleSystemTimeout
+handleSystemTimeout:handleSystemTimeout,
+gotoURL: gotoURL
     }
 });

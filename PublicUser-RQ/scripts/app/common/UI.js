@@ -28,12 +28,12 @@ define(['kendo', 'jQuery', '../views/template/baseTemplate'], function(kendo, $,
         }
             
         notification = notification.kendoNotification({
-                        position: {
-                            pinned: true,
-                            top: 30,
-                            right: 30
-                        },
-                        autoHideAfter: 0,
+                        //position: {
+                        //    pinned: true,
+                        //    top: 30,
+                        //    right: 30
+                        //},
+                        autoHideAfter: 2000,
                         stacking: "down",
                         templates: baseTemplate.templateNotification
 

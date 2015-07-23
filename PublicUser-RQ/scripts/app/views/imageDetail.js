@@ -49,6 +49,7 @@ define(['kendo', '../phonegap/phonegap', '../common/common', '../common/helper',
                                  item.dataURL = objImage.dataURL;
                                  item.description = objImage.description;
                          }
+                        $("#listImage").data("kendoMobileListView").refresh();
                     }
                     
                     objHandle.processed = 0;

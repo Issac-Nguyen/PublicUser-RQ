@@ -84,6 +84,12 @@ function updateDatasourceChart(e) {
                 tooltip: {
                     visible: true,
                     format: "{0}%"
+                },
+                seriesClick: function(e) {
+                      // Disable browser context menu
+                      e.originalEvent.preventDefault();
+                    var url = "/?filter=" + e.category; 
+                      helper.gotoURL(url);
                 }
             });
             

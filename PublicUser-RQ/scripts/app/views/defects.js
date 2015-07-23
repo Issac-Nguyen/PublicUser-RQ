@@ -21,14 +21,28 @@ define(['jQuery', 'kendo', './template/baseTemplate', './defect', '../common/com
     //    {id: 18, name: "Tori Katsu", createdDate: "07/07/2015", createdDate1: "20150707" },
     //    {id: 19, name: "Yaki Udon", createdDate: "06/07/2015", createdDate1: "20150706" }
     //];
+    
+    function getFilterOption(vl) {
+        return {
+                        logic: "or",
+                        filters: [
+                          { field: "building_name", operator: "startswith", value: vl},
+                          { field: "building_id", operator: "startswith", value: vl},
+                        ]
+                    }
+    }
+    
+    
+    function filterDataSource(vl) {
+        this.get('listDefects').filter(getFilterOption(vl));
+    }
+    
     return {
         init: function(initEvt) {
             $("#listDefects").kendoMobileListView({
                 dataSource: this.model.get('listDefects'),
-                                template: baseTemplate.templateDefect,
-                filterable: {
-                    field: "name"
-                },
+                template: baseTemplate.templateDefect,
+                //filterable: true,
                 click: function(e) {
                     var item = e.dataItem;
                     defectView.setDataDetailToView(item);
@@ -36,6 +50,8 @@ define(['jQuery', 'kendo', './template/baseTemplate', './defect', '../common/com
             });
             
             var self = this;
+            
+            
             
             
             helper.handleSystemTimeout(function(callback){
@@ -73,6 +89,16 @@ define(['jQuery', 'kendo', './template/baseTemplate', './defect', '../common/com
 
         show: function(showEvt) {
             // ... show event code ...
+            
+                var params = this.params;
+           if(params.filter) {
+                var filter = params.filter;
+                //this.model.get('listDefects').filter({ field: "building_id", value: "1" });
+               var searchInput =  $("#searchDefect");
+               searchInput.val(filter);
+               searchInput.trigger('keyup');
+               
+           }
         },
         afterShow: function(e) {
             common.heightHeader = e.view.element.find('.km-header').height();
@@ -86,11 +112,32 @@ define(['jQuery', 'kendo', './template/baseTemplate', './defect', '../common/com
                         field: "createdDate",
                         dir: "desc"
                     },
-                    change: helper.processAllInSubDefect
+                    change: helper.processAllInSubDefect,
+                    filter: {
+                        logic: "or",
+                        filters: [
+                          { field: "building_name", operator: "startswith", value: ""},
+                          { field: "building_id", operator: "startswith", value: ""},
+                        ]
+                    }
                 }),
 
             clickNew: function(e) {
                 $("#modalview-login").kendoMobileModalView("open");
+            },
+            clearFilterInput: function(e) {
+                $("#searchDefect").val("");
+                $("#clearSearch").addClass("noDisplay");
+                var valueSearch = "";
+                filterDataSource.call(this, valueSearch);
+            },
+            inputFilter: function(e) {
+                if(e.target.value == "")
+                    $("#clearSearch").addClass("noDisplay");
+                else
+                    $("#clearSearch").removeClass("noDisplay");
+                var valueSearch = e.target.value;
+                filterDataSource.call(this, valueSearch);
             },
             initDefectsList: function(data) {
                 if(data.rows.length == 0)
