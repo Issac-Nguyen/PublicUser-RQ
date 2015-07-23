@@ -57,7 +57,7 @@ var otherCategory = {
 		folderImage: 'imgDefects',
         objIntervalProcessDefect: objIntervalProcessDefect,
         objIntervalProcessSystem: objIntervalProcessSystem,
-        intervalProcessDefect: 1000,
+        intervalProcessDefect: 5000,
         intervalProcessSystem: 1000,
         defectColorAfter: defectColorAfter,
         maximumImageCapture: 2,

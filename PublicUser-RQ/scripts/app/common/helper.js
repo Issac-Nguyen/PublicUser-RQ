@@ -1,12 +1,46 @@
 define(['./common', './resolveData', './sqlite', './pubsub'], function(common, resolveData, database, pubsub) {
     var pushPlugin = common.pushNotification;
-    var AutoprocessDefect = function() {
-        console.log('on');
-    }
-
+    var isProcessingAutoProcessDefect = false;
+     
     function handlerErr(err) {
         alert(JSON.stringify(err));
     }
+    
+    function logAutoProcessDefect(err) {
+        console.log(err);
+        isProcessingAutoProcessDefect = false;
+    }
+    
+    var AutoprocessDefect = function() {
+        console.log('on');
+        if(isProcessingAutoProcessDefect)
+       			return;
+       		isProcessingAutoProcessDefect = true;
+       		database.selectCondition("defect", "status = 0", function(data) {
+       		if(data.rows.length == 0)
+                    return;
+                var dataArr = [];
+                for(var i = 0; i < data.rows.length; i++) {
+                    var row = data.rows.item(i);
+                    //alert(row);
+                    dataArr.push(row);
+                }
+                alert(JSON.stringify(dataArr));
+    			var obj = {data: JSON.stringify(dataArr)};
+       			resolveData.getDataAjax({apiURL: common.urlServerData + "/uploadDefect",
+   									format: "JSON",
+   									method: "POST",
+   									data: obj,
+   									successCallback: function(res) {
+       													if(res.result == "success")
+       														console.log("success");
+								   },
+                                    errorCallback: logAutoProcessDefect
+								});
+			}, logAutoProcessDefect);
+    }
+
+
 
     var registerProcessDefect = function() {
         common.objIntervalProcessDefect = setInterval(AutoprocessDefect, common.intervalProcessDefect);

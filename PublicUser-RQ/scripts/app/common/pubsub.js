@@ -4,9 +4,13 @@ define([], function() {
     var systemArr = [];
     var isProcessingSystemArr = false;
     
-    function cbProcessing() {
+    function cbProcessingSystemArr() {
                isProcessingSystemArr = false;
            }
+    
+    function dbProcessingAutoProcessDefect() {
+        isProcessingAutoProcessDefect = false;
+    }
     
    return {
        addIntoSubDefect: function(obj) {
@@ -61,8 +65,9 @@ define([], function() {
            console.log('processAllInSystemArr');
            //addIntoSystemArr(obj);
            isProcessingSystemArr = true;
-           systemArr[0](cbProcessing);
+           systemArr[0](cbProcessingSystemArr);
            
        }
+       
    } 
 });

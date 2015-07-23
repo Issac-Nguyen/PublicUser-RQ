@@ -100,10 +100,11 @@ define(['kendo', '../common/UI', '../phonegap/phonegap', '../common/common', '..
                                             //objDefect.defectsArr = $("#listImage").data("kendoMobileListView").dataSource.data().toJSON();
                                             objDefect.arr_imageDefect = JSON.stringify(this.get('listImage').data().toJSON());
                                             objDefect.arr_imageResolve = "[]";
-                                            objDefect.color = "white",
+                                            objDefect.color = "white";
+                                            objDefect.status = 0;
                                             objDefect.createdDate = helper.formatDate();
                                             objDefect.createdTime = helper.currentTime();
-                                            //database.insertInto("defect", objDefect, function(res) {
+                                            database.insertInto("defect", objDefect, function(res) {
                                             //if(helper.checkInternet()) {
                                             //helper.uploadDefectToServer(objDefect, function(res) {
                                             //    if (res.result === 'success') {
@@ -124,9 +125,9 @@ define(['kendo', '../common/UI', '../phonegap/phonegap', '../common/common', '..
                                             //    resetModel(self, function() {
                                             //                defectsView.insertIntoListDefects(objDefect);
                                             //                helper.goBack();
-                                            //}, helper.handleErr);
+                                            //}, helper.handlerErr);
                                             //}
-                                            //}, helper.handleErr);
+                                            }, helper.handlerErr);
                                             //database.insertInto('defects', objDefect, function() {
                                             //    resetModel(self, function() {
                                             //        $("#listImage").data("kendoMobileListView").dataSource.data([]);

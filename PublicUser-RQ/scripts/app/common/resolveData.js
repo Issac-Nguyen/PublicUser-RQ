@@ -12,7 +12,7 @@ define(["jQuery", './sqlite'], function ($, database) {
             data: options.data,
             jsonpCallback: options.jsonpCallback,
             success: options.successCallback || renderData,
-            error: ajaxError,
+            error: options.errorCallback || ajaxError,
             timeout: options.timeout
         });
     }

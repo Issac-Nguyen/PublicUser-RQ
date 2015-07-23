@@ -15,11 +15,11 @@ define(['jQuery', 'kendo', 'app/views/baseView', 'app/common/helper', 'app/commo
 					var self = this;
 					this.showLoading();
                     //helper.registerPushNotification();
-					//helper.initDatabase(function() {
+					helper.initDatabase(function() {
                 
-						 //helper.getAllDefectData(function(data) {
-                              //self.view().model.initDefectsList(data);
-							 //helper.handleAutoProcessDefect();
+						 helper.getAllDefectData(function(data) {
+                              self.view().model.initDefectsList(data);
+							 helper.handleAutoProcessDefect();
                           //   if(helper.checkInternet()) {
                                 //helper.getDataAjax({
                                   //  apiURL: common.urlServerData + '/PublicUserInfo',
@@ -29,19 +29,20 @@ define(['jQuery', 'kendo', 'app/views/baseView', 'app/common/helper', 'app/commo
                                         //self.hideLoading();
                                     //},
                         			//error: function() {self.hideLoading();},
-                                //});
+                             		self.hideLoading();
+                           //     });
                             // }  else {
-                                 self.hideLoading();
+                                 //self.hideLoading();
                              //}
 							
 							
-						 //});
-                    //});
+						 });
+                    });
 					 //}, function(e){self.hideLoading();});
 				}
 			});
 
-
+               
 
 		},
 		views: {
