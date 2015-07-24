@@ -147,7 +147,6 @@ define(['jQuery', 'kendo', './template/baseTemplate', './defect', '../common/com
                     var row = data.rows.item(i);
                     row.arr_imageDefect = JSON.parse(row.arr_imageDefect);
                     row.arr_imageResolve = JSON.parse(row.arr_imageResolve);
-                    alert(row);
                     dataArr.push(row);
                 }
                 alert(JSON.stringify(dataArr));

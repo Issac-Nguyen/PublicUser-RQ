@@ -34,6 +34,7 @@ define(['./common', './resolveData', './sqlite', './pubsub'], function(common, r
    									successCallback: function(res) {
        													if(res.result == "success")
        														console.log("success");
+                                        				logAutoProcessDefect();
 								   },
                                     errorCallback: logAutoProcessDefect
 								});
