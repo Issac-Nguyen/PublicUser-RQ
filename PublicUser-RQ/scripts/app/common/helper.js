@@ -219,7 +219,7 @@ define(['./common', './resolveData', './sqlite', './pubsub'], function(common, r
         },
         initDrawonCanvas: function(canvasID) {
             var canvas = document.getElementById(canvasID);
-            var height = common.windowHeight - common.heightHeader;
+            var height = common.windowHeight - common.heightHeader - 10;
             canvas.width = common.windowWidth;
             canvas.height = height;
             //canvas.width = 100;
@@ -371,7 +371,7 @@ define(['./common', './resolveData', './sqlite', './pubsub'], function(common, r
             var self = this;
             img.src = dataURL;
             var width = common.windowWidth,
-                height = common.windowHeight - common.heightHeader;
+                height = common.windowHeight - common.heightHeader - 10;
             img.width = width;
             img.height = height;
             var canvas = document.getElementById(canvasID);

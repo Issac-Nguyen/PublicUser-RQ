@@ -37,6 +37,35 @@ define(['jQuery', 'kendo', './template/baseTemplate', './defect', '../common/com
         this.get('listDefects').filter(getFilterOption(vl));
     }
     
+     function swipe(e) {
+        var button = kendo.fx($(e.touch.currentTarget).find("[data-role=button]"));
+        button.expand().duration(30).play();
+    }
+
+     function touchstart(e) {
+        var target = $(e.touch.initialTouch),
+            listview = $("#listDefects").data("kendoMobileListView"),
+            model,
+            button = $(e.touch.target).find("[data-role=button]:visible");
+
+        if (target.closest("[data-role=button]")[0]) {
+            //model = dataSource.getByUid($(e.touch.target).attr("data-uid"));
+            //dataSource.remove(model);
+            alert('delete');
+
+            //prevent `swipe`
+            this.events.cancel();
+            e.event.stopPropagation();
+        } else if (button[0]) {
+            button.hide();
+
+            //prevent `swipe`
+            this.events.cancel();
+        } else {
+            listview.items().find("[data-role=button]:visible").hide();
+        }
+    }
+    
     return {
         init: function(initEvt) {
             $("#listDefects").kendoMobileListView({
@@ -47,13 +76,16 @@ define(['jQuery', 'kendo', './template/baseTemplate', './defect', '../common/com
                     var item = e.dataItem;
                     defectView.setDataDetailToView(item);
                 }
-            });
+            })
+             .kendoTouch({
+                filter: ">li",
+                enableSwipe: true,
+                touchstart: touchstart,
+                swipe: swipe
+        });
             
             var self = this;
-            
-            
-            
-            
+                   
             helper.handleSystemTimeout(function(callback){
                 var updateMsg = "";
                 var arrDefect = self.model.get('listDefects').data().toJSON();
