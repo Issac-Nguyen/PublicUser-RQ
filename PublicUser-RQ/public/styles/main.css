@@ -66,4 +66,17 @@ ul.singlerowLi {
     margin: 0;
     line-height: 2.5em;
     box-shadow: inset .1em .1em .2em 0 rgba(0,0,0,.2);
+    color: white !important;
+    background-color: rgb(211, 60, 60) !important;
+}
+
+.delete-button {
+    color: white !important;
+    background-color: rgb(211, 60, 60) !important;
+}
+
+.blue-button {
+    color: white !important;
+    background-color: #007aff !important;
+
 }

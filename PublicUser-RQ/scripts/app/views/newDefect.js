@@ -104,7 +104,7 @@ define(['kendo', '../common/UI', '../phonegap/phonegap', '../common/common', '..
                                             objDefect.status = 0;
                                             objDefect.createdDate = helper.formatDate();
                                             objDefect.createdTime = helper.currentTime();
-                                            database.insertInto("defect", objDefect, function(res) {
+                                            ///database.insertInto("defect", objDefect, function(res) {
                                             //if(helper.checkInternet()) {
                                             //helper.uploadDefectToServer(objDefect, function(res) {
                                             //    if (res.result === 'success') {
@@ -127,7 +127,7 @@ define(['kendo', '../common/UI', '../phonegap/phonegap', '../common/common', '..
                                             //                helper.goBack();
                                             //}, helper.handlerErr);
                                             //}
-                                            }, helper.handlerErr);
+                                            ///}, helper.handlerErr);
                                             //database.insertInto('defects', objDefect, function() {
                                             //    resetModel(self, function() {
                                             //        $("#listImage").data("kendoMobileListView").dataSource.data([]);

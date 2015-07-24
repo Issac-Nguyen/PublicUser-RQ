@@ -167,6 +167,13 @@ define(['./common', './resolveData', './sqlite', './pubsub'], function(common, r
     function gotoURL(url) {
         app.getAppObj().navigate(url);
     }
+    
+    function deleteDefect(condition, successCallback) {
+        var strSQL = "DELETE defect";
+        if(condition)
+            strSQL = strSQL + " " + condition;
+        database.executeSQL(strSQL, successCallback, handlerErr);
+    }
 
     return {
         handlerErr: handlerErr,
@@ -475,7 +482,8 @@ define(['./common', './resolveData', './sqlite', './pubsub'], function(common, r
         getDataAjax: resolveData.getDataAjax,
         registerPushNotification: registerPushNotification,
         uploadDefectToServer: uploadDefectToServer,
-handleSystemTimeout:handleSystemTimeout,
-gotoURL: gotoURL
+        handleSystemTimeout:handleSystemTimeout,
+        gotoURL: gotoURL,
+        deleteDefect: deleteDefect
     }
 });

@@ -50,6 +50,9 @@ define(['jQuery', 'kendo', './imageDetailDefect'], function($, kendo, imageDetai
             arr_imageResolve: kendo.data.DataSource.create({
                                                                                     data: []
                                                                                 }),
+            deleteDefect: function() {
+                
+            }
 		}),
 
 		setDataDetailToView: function(item) {
