@@ -45,6 +45,7 @@ define(['kendo', '../common/UI', '../phonegap/phonegap', '../common/common', '..
             UI.buildDropDownList('drZone', options);
             UI.buildDropDownList('drFloor', options);
             UI.buildDatepicker('expectedCompleteDate', {format: "dd/MM/yyyy",value: new Date()});
+            
 
             validator = $("#form-newDefect").kendoValidator().data("kendoValidator");
         },
@@ -138,7 +139,7 @@ define(['kendo', '../common/UI', '../phonegap/phonegap', '../common/common', '..
                                         },
                                         addImage
                                         : function(e) {
-                                            UI.showNotification({message: 'message', type: 'info'});
+                                            UI.showNotification({message: 'message', type: 'error'});
                                             var self = this;
 
                                             //if ($("#listImage").data("kendoMobileListView"))
@@ -157,6 +158,7 @@ define(['kendo', '../common/UI', '../phonegap/phonegap', '../common/common', '..
                                             //        dataURL: nativeURLx,
                                                     //nativeURL: nativeURL
                                             //    });
+                                            // UI.scrollTop(undefined, $("#listImage li:last-child"));
                                             //});
                                             
                                             this.get('listImage').add({
@@ -164,6 +166,7 @@ define(['kendo', '../common/UI', '../phonegap/phonegap', '../common/common', '..
                                                                           dataURL: "public/images/test.jpg",
                                                                           description: ''
                                                                       });
+                                            UI.scrollTop(undefined, $("#listImage li:last-child"));
                                         },
                                         refreshListImage
                                         : function() {

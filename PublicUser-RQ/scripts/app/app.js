@@ -14,7 +14,7 @@ define(['jQuery', 'kendo', 'app/views/baseView', 'app/common/helper', 'app/commo
 				init: function() {
 					var self = this;
 					this.showLoading();
-                    //helper.registerPushNotification();
+                    helper.registerPushNotification();
 				//	helper.initDatabase(function() {
                 
 						 //helper.getAllDefectData(function(data) {

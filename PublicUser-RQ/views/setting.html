@@ -22,19 +22,6 @@
                     <span class="description-span">Please input your information for getting our best service</span>
                     <li>
                         <label class="km-label-above">
-                            Company ID
-                            <input type="text" name="companyID" id="companyID" class="font12size" data-bind="value: companyID" placeholder="Company ID" />
-                        </label>
-                        
-                    </li>
-                    <li>
-                        <label class="km-label-above">
-                            Company Password
-                        <input type="password" name="companyPassword" id="companyPassword" class="font12size" data-bind="value: companyPassword" placeholder="Company Password" />
-                        </label>
-                    </li>
-                    <li>
-                        <label class="km-label-above">
                              User Name
                         <input type="text" name="username" id="username" class="font12size" data-bind="value: username" placeholder="name" />
                         </label>
@@ -51,7 +38,24 @@
                         <input type="tel" name="contactNo" id="contactNo" class="font12size" data-bind="value: contactNo" placeholder="Contact Number" />
                         </label>
                     </li>
-                
+                </ul>
+             </li>
+            <li>
+                Advance Profile
+                <ul>
+                    <li>
+                        <label class="km-label-above">
+                            Company ID
+                            <input type="text" name="companyID" id="companyID" class="font12size" data-bind="value: companyID" placeholder="Company ID" />
+                        </label>
+                        
+                    </li>
+                    <li>
+                        <label class="km-label-above">
+                            Company Password
+                        <input type="password" name="companyPassword" id="companyPassword" class="font12size" data-bind="value: companyPassword" placeholder="Company Password" />
+                        </label>
+                    </li>
                 </ul>
                 <a data-role="button" class="button-middle blue-button" data-bind="events:{click: saveProfile}">Save</a>
             </li>

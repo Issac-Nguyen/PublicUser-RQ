@@ -14,6 +14,14 @@ define(['kendo', 'jQuery', '../views/template/baseTemplate'], function(kendo, $,
     
     function buildDatepicker(id, options) {
         $("#" + id).kendoDatePicker(options);
+        $("#" + id).attr("readonly", "readonly");
+    }
+    
+    function scrollTop(parent, DOM) {
+        var parentDOM = parent || 'html, body'
+          $(parentDOM).animate({
+            scrollTop: DOM.offset().top
+        }, 500);
     }
     
     function showNotification(options) {
@@ -33,7 +41,7 @@ define(['kendo', 'jQuery', '../views/template/baseTemplate'], function(kendo, $,
                         //    top: 30,
                         //    right: 30
                         //},
-                        autoHideAfter: 2000,
+                        autoHideAfter: 0,
                         stacking: "down",
                         templates: baseTemplate.templateNotification
 
@@ -47,6 +55,7 @@ define(['kendo', 'jQuery', '../views/template/baseTemplate'], function(kendo, $,
     return {
         buildDropDownList: buildDropDownList,
         buildDatepicker: buildDatepicker,
-        showNotification: showNotification
+        showNotification: showNotification,
+        scrollTop: scrollTop
     }
 });

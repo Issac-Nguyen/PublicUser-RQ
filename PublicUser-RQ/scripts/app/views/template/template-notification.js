@@ -3,7 +3,7 @@ define([], function() {
        arrNotification: [
            {
            type: 'info',
-           template: '<h4>Info</h4><b>${message}</b>'
+           template: '<div class="notification-box"><span class="notification-info">${message}<span></div>'
            },
            {
            type: 'warning',
