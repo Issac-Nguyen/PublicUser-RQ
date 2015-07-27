@@ -5,6 +5,7 @@ define(['jQuery', 'kendo', 'app/views/baseView', 'app/common/helper', 'app/commo
 		getAppObj: function() {
 			return _kendoApplication;
 		},
+        onNotificationAPN: helper.onNotificationAPN,
 		init: function() {
 
 			kendo.UserEvents.defaultThreshold(20);
@@ -15,7 +16,7 @@ define(['jQuery', 'kendo', 'app/views/baseView', 'app/common/helper', 'app/commo
 					var self = this;
 					this.showLoading();
                     helper.registerPushNotification();
-				//	helper.initDatabase(function() {
+					//helper.initDatabase(function() {
                 
 						 //helper.getAllDefectData(function(data) {
                          //     self.view().model.initDefectsList(data);
@@ -29,10 +30,10 @@ define(['jQuery', 'kendo', 'app/views/baseView', 'app/common/helper', 'app/commo
                                         //self.hideLoading();
                                     //},
                         			//error: function() {self.hideLoading();},
-                             		self.hideLoading();
+                             		//self.hideLoading();
                            //     });
                             // }  else {
-                                 //self.hideLoading();
+                                 self.hideLoading();
                              //}
 							
 							

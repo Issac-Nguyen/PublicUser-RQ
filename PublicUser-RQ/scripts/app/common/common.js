@@ -6,7 +6,7 @@ define([], function() {
     var objIntervalProcessSystem;
     var defectColorAfter = {red: 5};
     
-    //var pushPlugin = window.plugins.pushNotification;
+    var pushPlugin = window.plugins.pushNotification;
     
     var readAction = {
     identifier: 'READ_IDENTIFIER', // mandatory
@@ -62,7 +62,7 @@ var otherCategory = {
         defectColorAfter: defectColorAfter,
         maximumImageCapture: 2,
         defectsList: [],
-       // pushNotification: pushPlugin,
+        pushNotification: pushPlugin,
         readCategory: readCategory,
         otherCategory: otherCategory,
         urlServerData: 'http://101.100.173.227:8888',

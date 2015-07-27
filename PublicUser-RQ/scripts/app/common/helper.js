@@ -82,7 +82,7 @@ define(['./common', './resolveData', './sqlite', './pubsub'], function(common, r
         pushPlugin.register(function(token)
                             {alert(token);setLocalStorage('token', token);}
                             , handlerErr,
-                            {"badge":"true","sound":"true","alert":"true","ecb":"onNotificationAPN", "foreground": "1"});
+                            {"badge":"true","sound":"true","alert":"true","ecb":"app.onNotificationAPN"});
     //},
     // called in case the configuration is incorrect
     //handlerErr,
@@ -105,19 +105,8 @@ define(['./common', './resolveData', './sqlite', './pubsub'], function(common, r
     }
     
     function onNotificationAPN(e) {
-//        alert('notification');
-                if (e.alert) {
-                     alert('alert');
-                }
-
-                if (e.badge) {
-					alert('badge');
-                }
         
-        		if(e.payload) {
-                    setLocalStorage('payload', e.payload);
-                }
-        alert('notification');
+        		alert(JSON.stringify(e));
             }
     
     
@@ -484,6 +473,7 @@ define(['./common', './resolveData', './sqlite', './pubsub'], function(common, r
         uploadDefectToServer: uploadDefectToServer,
         handleSystemTimeout:handleSystemTimeout,
         gotoURL: gotoURL,
-        deleteDefect: deleteDefect
+        deleteDefect: deleteDefect,
+        onNotificationAPN: onNotificationAPN
     }
 });
