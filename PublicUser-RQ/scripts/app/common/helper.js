@@ -80,7 +80,7 @@ define(['./common', './resolveData', './sqlite', './pubsub'], function(common, r
     // the success callback which will immediately return (APNs is not contacted for this)
     //function(){
         pushPlugin.register(function(token)
-                            {alert(token);setLocalStorage('token', token)}
+                            {alert(token);setLocalStorage('token', token);}
                             , handlerErr,
                             {"badge":"true","sound":"true","alert":"true","ecb":"onNotificationAPN", "foreground": "1"});
     //},
@@ -106,7 +106,6 @@ define(['./common', './resolveData', './sqlite', './pubsub'], function(common, r
     
     function onNotificationAPN(e) {
 //        alert('notification');
-        navigator.notification.vibrate(3000);
                 if (e.alert) {
                      alert('alert');
                 }
@@ -118,6 +117,7 @@ define(['./common', './resolveData', './sqlite', './pubsub'], function(common, r
         		if(e.payload) {
                     setLocalStorage('payload', e.payload);
                 }
+        alert('notification');
             }
     
     
