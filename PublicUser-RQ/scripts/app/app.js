@@ -16,7 +16,7 @@ define(['jQuery', 'kendo', 'underscore', 'app/views/baseView', 'app/common/sqlit
 					var self = this;
 					this.showLoading();
                     //helper.registerPushNotification();
-					//database.start(function() {
+					database.start(function() {
                 
 						 //database.getAllDefectData(function(data) {
                          //     self.view().model.initDefectsList(data);
@@ -43,7 +43,7 @@ define(['jQuery', 'kendo', 'underscore', 'app/views/baseView', 'app/common/sqlit
 							
 						// });
                     //});
-					 //}, function(e){self.hideLoading();});
+					 }, function(e){self.hideLoading();});
 				}
 			});
 

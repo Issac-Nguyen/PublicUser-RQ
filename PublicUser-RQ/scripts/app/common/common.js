@@ -66,7 +66,7 @@ var otherCategory = {
         pushNotification: "",
         readCategory: readCategory,
         otherCategory: otherCategory,
-        urlServerData: 'http://localhost:8888/api',
+        urlServerData: 'http://101.100.173.227:8888/api',
         colorRed: "rgba(255, 178, 178, 0.63)"
 	}
 });

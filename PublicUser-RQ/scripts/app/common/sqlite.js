@@ -26,15 +26,15 @@ define(['async', 'underscore', './Utils'], function(async, _, Utils) {
             
             var sqlStr = "INSERT INTO " + table + strFields + " VALUES" + strVl;
             
-            alert(sqlStr);
-            alert(JSON.stringify(dataArr));
+            //alert(sqlStr);
+            //alert(JSON.stringify(dataArr));
             
-            //db.transaction(function(tx) {
-            // tx.executeSql(sqlStr, dataArr, function(tx1, res) {
-            //     if(sb)
-            //         sb(res);
-            //     }, Utils.handleErr);
-            // },  Utils.handleErr);
+            db.transaction(function(tx) {
+             tx.executeSql(sqlStr, dataArr, function(tx1, res) {
+                 if(sb)
+                     sb(res);
+                 }, Utils.handleErr);
+             },  Utils.handleErr);
         }
     }
     
@@ -125,6 +125,8 @@ define(['async', 'underscore', './Utils'], function(async, _, Utils) {
                     break;
             }
         });
+        if(cb)
+            cb();
     }
     
     function selectAll(table, sb, eb) {
@@ -170,7 +172,14 @@ define(['async', 'underscore', './Utils'], function(async, _, Utils) {
 
         function installModels() {
             db.transaction(function(tx) {
-               //tx.executeSql('DROP TABLE IF EXISTS defect');
+               tx.executeSql('DROP TABLE IF EXISTS defect');
+                tx.executeSql('DROP TABLE IF EXISTS Building');
+                tx.executeSql('DROP TABLE IF EXISTS Category');
+                tx.executeSql('DROP TABLE IF EXISTS SubCategory');
+                tx.executeSql('DROP TABLE IF EXISTS SubDepartment');
+                tx.executeSql('DROP TABLE IF EXISTS Zone');
+                tx.executeSql('DROP TABLE IF EXISTS SubZone');
+                tx.executeSql('DROP TABLE IF EXISTS Floor');
                tx.executeSql('CREATE TABLE IF NOT EXISTS Building (id text primary key, Company_id text, Name text, Address text)'); 
                tx.executeSql('CREATE TABLE IF NOT EXISTS Category (id text primary key, Building_id text, Company_id text, Name text, Description text)'); 
                tx.executeSql('CREATE TABLE IF NOT EXISTS SubCategory (id text primary key, Category_id text, Name text, Description text)'); 
