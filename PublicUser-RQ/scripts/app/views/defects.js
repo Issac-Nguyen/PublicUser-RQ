@@ -112,6 +112,8 @@ define(['jQuery', 'kendo', './template/baseTemplate', './defect', '../common/com
                 if(callback)
                 callback();
             });
+            
+            
         },
 
         beforeShow: function(beforeShowEvt) {

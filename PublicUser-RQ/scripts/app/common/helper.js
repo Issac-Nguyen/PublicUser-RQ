@@ -1,10 +1,6 @@
-define(['./common', './resolveData', './sqlite', './pubsub'], function(common, resolveData, database, pubsub) {
+define(['./common', './resolveData', './sqlite', './pubsub', './Utils'], function(common, resolveData, database, pubsub, Utils) {
     var pushPlugin = common.pushNotification;
     var isProcessingAutoProcessDefect = false;
-     
-    function handlerErr(err) {
-        alert(JSON.stringify(err));
-    }
     
     function logAutoProcessDefect(err) {
         console.log(err);
@@ -51,22 +47,6 @@ define(['./common', './resolveData', './sqlite', './pubsub'], function(common, r
         console.log('off');
         clearInterval(common.objIntervalProcessDefect);
     }
-
-    function getAllDefectData(successCallback) {
-        resolveData.getDataIndexedDB('defect', successCallback);
-    }
-    
-    function initDatabase(cb) {
-        database.start(cb, handlerErr);
-    }
-    
-    function setLocalStorage(pro, vl) {
-        localStorage[pro] = vl;
-    }
-    
-    function getLocalStorage(pro) {
-        return localStorage[pro];
-    }
     
     function handleSystemTimeout(fn) {
         pubsub.addIntoSystemArr(fn);
@@ -81,11 +61,11 @@ define(['./common', './resolveData', './sqlite', './pubsub'], function(common, r
     //function(){
         pushPlugin.register(function(token)
                             {alert(token);setLocalStorage('token', token);}
-                            , handlerErr,
+                            , Utils.handleErr,
                             {"badge":"true","sound":"true","alert":"true","ecb":"app.onNotificationAPN"});
     //},
     // called in case the configuration is incorrect
-    //handlerErr,
+    //Utils.handleErr,
     //{
             // asking permission for these features
       //      types: [
@@ -149,70 +129,15 @@ define(['./common', './resolveData', './sqlite', './pubsub'], function(common, r
                 method: "POST",
                 format: "json",
                 successCallback: sb,
-                errorCallback: handlerErr
+                errorCallback: Utils.handleErr
             });
     }
     
     function gotoURL(url) {
         app.getAppObj().navigate(url);
     }
-    
-    function deleteDefect(condition, successCallback) {
-        var strSQL = "DELETE defect";
-        if(condition)
-            strSQL = strSQL + " " + condition;
-        database.executeSQL(strSQL, successCallback, handlerErr);
-    }
 
     return {
-        handlerErr: handlerErr,
-        timestampString: function() {
-            return Math.floor(Date.now());
-        },
-        formatDate: function(dateOb) {
-            var dateObj;
-            if(dateOb)
-                dateObj = dateOb;
-            else
-             dateObj = new Date();
-            var dd = dateObj.getDate();
-            var mm = dateObj.getMonth() + 1; //January is 0!
-            var yyyy = dateObj.getFullYear();
-
-            if (dd < 10) {
-                dd = '0' + dd
-            }
-
-            if (mm < 10) {
-                mm = '0' + mm
-            }
-
-            dateObj = dd + '/' + mm + '/' + yyyy;
-
-            return dateObj;
-        },
-        currentTime: function() {
-            var time = new Date();
-            var hh = time.getHours();
-            var mm = time.getMinutes();
-            var ss = time.getSeconds();
-
-            if (hh < 10) {
-                hh = '0' + hh;
-            }
-
-            if (mm < 10) {
-                mm = '0' + mm;
-            }
-
-            if (ss < 10) {
-                ss = '0' + ss;
-            }
-
-            time = hh + ':' + mm + ':' + ss;
-
-            return time;
-        },
         initDrawonCanvas: function(canvasID) {
             var canvas = document.getElementById(canvasID);
             var height = common.windowHeight - common.heightHeader - 10;
@@ -404,37 +329,6 @@ define(['./common', './resolveData', './sqlite', './pubsub'], function(common, r
             context.restore();
         },
         handleProcessDefect: handleProcessDefect,
-        convertDataURIToBlob: function(dataURI, mimetype) {
-            var BASE64_MARKER = ';base64,';
-            var base64Index = dataURI.indexOf(BASE64_MARKER) + BASE64_MARKER.length;
-            var base64 = dataURI.substring(base64Index);
-            var raw = window.atob(base64);
-            var rawLength = raw.length;
-            var uInt8Array = new Uint8Array(rawLength);
-            for (var i = 0; i < rawLength; ++i) {
-                uInt8Array[i] = raw.charCodeAt(i);
-            }
-            // var bb = new BlobBuilder();
-            // bb.append(uInt8Array.buffer);
-
-            try {
-                return new Blob([uInt8Array.buffer], {
-                                    type: mimetype
-                                });
-            } catch (e) {
-                // The BlobBuilder API has been deprecated in favour of Blob, but older
-                // browsers don't know about the Blob constructor
-                // IE10 also supports BlobBuilder, but since the `Blob` constructor
-                //  also works, there's no need to add `MSBlobBuilder`.
-                alert(e);
-                var BlobBuilder = window.WebKitBlobBuilder || window.MozBlobBuilder;
-                var bb = new BlobBuilder();
-                bb.append(uInt8Array.buffer);
-                return bb.getBlob(mimetype);
-            }
-            // return bb.getBlob(mimetype); 
-        },
-        getAllDefectData: getAllDefectData,
         goBack: function() {
             app.getAppObj().navigate("#:back");
         },
@@ -460,9 +354,6 @@ define(['./common', './resolveData', './sqlite', './pubsub'], function(common, r
             if (cb)
                 cb();
         },
-        initDatabase: initDatabase,
-        setLocalStorage: setLocalStorage,
-        getLocalStorage: getLocalStorage,
         handleAutoProcessDefect: handleAutoProcessDefect,
         processAllInSubDefect: pubsub.processAllInSubDefect,
         addIntoSubDefect: pubsub.addIntoSubDefect,
@@ -473,7 +364,6 @@ define(['./common', './resolveData', './sqlite', './pubsub'], function(common, r
         uploadDefectToServer: uploadDefectToServer,
         handleSystemTimeout:handleSystemTimeout,
         gotoURL: gotoURL,
-        deleteDefect: deleteDefect,
-        onNotificationAPN: onNotificationAPN
+        onNotificationAPN: onNotificationAPN,
     }
 });

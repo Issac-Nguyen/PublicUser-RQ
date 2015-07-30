@@ -1,4 +1,4 @@
-define(['kendo', '../common/UI', '../phonegap/phonegap', '../common/common', '../common/sqlite', '../common/helper', '../common/pubsub', './template/baseTemplate','./imageDetail'], function(kendo, UI, phonegap, common, database, helper, pubsub, baseTemplate, imageDetailView) {
+define(['kendo', 'async', '../common/UI', '../phonegap/phonegap', '../common/common', '../common/sqlite', '../common/helper', '../common/pubsub', './template/baseTemplate','./imageDetail', '../common/Utils'], function(kendo, async, UI, phonegap, common, database, helper, pubsub, baseTemplate, imageDetailView, Utils) {
     var isDisableCapture = false;
     var validator;
 
@@ -30,24 +30,139 @@ define(['kendo', '../common/UI', '../phonegap/phonegap', '../common/common', '..
                                                         imageDetailView.setDataIntoView(item);
                                                     }
                                                 });
+            var self = this;
             
-            var options = {
-                dataSource: [
-                    {ID: '1', Name: 'First Option'},{ID: '2', Name:'Second Option'},
-                    {ID: '3', Name:'Third Option'},{ID: '4', Name:'Fourth Option'},
-                ], dataTextField: "Name",
+            async.parallel([function(cb){
+                database.selectAll('Building', function(res){
+                        var dataArr = [];
+                        for(var i = 0; i < res.rows.length; i++) {
+                            var item = res.rows.item(i);
+                            dataArr.push(item);
+                        }
+                        self.model.set('dsBuilding', dataArr);
+                        cb('success');
+                    }, Utils.handleErr);
+            },function(cb){
+                database.selectAll('Category', function(res){
+                        var dataArr = [];
+                        for(var i = 0; i < res.rows.length; i++) {
+                            var item = res.rows.item(i);
+                            dataArr.push(item);
+                        }
+                        self.model.set('dsCategory', dataArr);
+                        cb('success');
+                    }, Utils.handleErr);
+            },function(cb){
+                database.selectAll('Department', function(res){
+                        var dataArr = [];
+                        for(var i = 0; i < res.rows.length; i++) {
+                            var item = res.rows.item(i);
+                            dataArr.push(item);
+                        }
+                        self.model.set('dsDepartment', dataArr);
+                        cb('success');
+                    }, Utils.handleErr);
+            },function(cb){
+                database.selectAll('Zone', function(res){
+                        var dataArr = [];
+                        for(var i = 0; i < res.rows.length; i++) {
+                            var item = res.rows.item(i);
+                            dataArr.push(item);
+                        }
+                        self.model.set('dsZone', dataArr);
+                        cb('success');
+                    }, Utils.handleErr);
+            },function(cb){
+                database.selectAll('SubCategory', function(res){
+                        var dataArr = [];
+                        for(var i = 0; i < res.rows.length; i++) {
+                            var item = res.rows.item(i);
+                            dataArr.push(item);
+                        }
+                        self.model.set('dsSubCategory', dataArr);
+                        cb('success');
+                    }, Utils.handleErr);
+            },function(cb){
+                 database.selectAll('SubDepartment', function(res){
+                        var dataArr = [];
+                        for(var i = 0; i < res.rows.length; i++) {
+                            var item = res.rows.item(i);
+                            dataArr.push(item);
+                        }
+                        self.model.set('dsSubDepartment', dataArr);
+                        cb('success');
+                    }, Utils.handleErr);
+            },function(cb){
+                database.selectAll('Floor', function(res){
+                        var dataArr = [];
+                        for(var i = 0; i < res.rows.length; i++) {
+                            var item = res.rows.item(i);
+                            dataArr.push(item);
+                        }
+                        self.model.set('dsFloor', dataArr);
+                        cb('success');
+                    }, Utils.handleErr);
+            }], function(err, results){
+                var options = {
+                dataSource: this.model.get('dsBuilding'), dataTextField: "Name",
                 dataValueField: "ID", optionLabel: "Select a value..."
             };
             
             UI.buildDropDownList('drBuilding', options);
+            
+            options = {
+                dataSource: this.model.get('dsCategory'), dataTextField: "Name",
+                dataValueField: "ID", optionLabel: "Select a value..."
+            };
+            
             UI.buildDropDownList('drCategory', options);
+            
+            options = {
+                dataSource: this.model.get('dsSubCategory'), dataTextField: "Name",
+                dataValueField: "ID", optionLabel: "Select a value..."
+            };
             UI.buildDropDownList('drSubCategory', options);
+            
+            options = {
+                dataSource: this.model.get('dsDepartment'), dataTextField: "Name",
+                dataValueField: "ID", optionLabel: "Select a value..."
+            };
+            UI.buildDropDownList('drDepartment', options);
+            
+            options = {
+                dataSource: this.model.get('dsSubDepartment'), dataTextField: "Name",
+                dataValueField: "ID", optionLabel: "Select a value..."
+            };
+            UI.buildDropDownList('drSubDepartment', options);
+            
+            options = {
+                dataSource: this.model.get('dsZone'), dataTextField: "Name",
+                dataValueField: "ID", optionLabel: "Select a value..."
+            };
+            
             UI.buildDropDownList('drZone', options);
+            
+             options = {
+                dataSource: this.model.get('dsSubZone'), dataTextField: "Name",
+                dataValueField: "ID", optionLabel: "Select a value..."
+            };
+            
+            UI.buildDropDownList('drSubZone', options);
+            
+            options = {
+                dataSource: this.model.get('dsFloor'), dataTextField: "Name",
+                dataValueField: "ID", optionLabel: "Select a value..."
+            };
+            
             UI.buildDropDownList('drFloor', options);
+            
             UI.buildDatepicker('expectedCompleteDate', {format: "dd/MM/yyyy",value: new Date()});
             
 
             validator = $("#form-newDefect").kendoValidator().data("kendoValidator");
+            });
+            
+            
         },
 
         beforeShow: function(beforeShowEvt) {
@@ -58,7 +173,7 @@ define(['kendo', '../common/UI', '../phonegap/phonegap', '../common/common', '..
             // ... show event code ...
             //get id of defect
             if (this.model.get('id') == '')
-                this.model.set('id', helper.timestampString());
+                this.model.set('id', Utils.timestampString());
             
             pubsub.processAllInHandleArr(this.id, this);
         },
@@ -71,8 +186,19 @@ define(['kendo', '../common/UI', '../phonegap/phonegap', '../common/common', '..
                                         vlBuilding: '1',
                                         vlCategory: '1',
                                         vlSubCategory: '1',
+                                        vlDepartment: '1',
+                                        vlSubDepartment: '1',
                                         vlZone: '1',
+                                        vlSubZone: '1',
                                         vlFloor: '1',
+                                        dsBuilding: [],
+                                        dsCategory: [],
+                                        dsDepartment: [],
+                                        dsZone: [],
+                                        dsFloor: [],
+                                        dsSubCategory: [],
+                                        dsSubDepartment: [],
+                                        dsSubZone: [],
                                         vlExpetedCompletedDate: new Date(),
                                         listImage: kendo.data.DataSource.create({
                                                                                     data: []
@@ -97,14 +223,14 @@ define(['kendo', '../common/UI', '../phonegap/phonegap', '../common/common', '..
                                             objDefect.zone_name = $("#drZone :selected").text();
                                             objDefect.floor_id = this.get('vlFloor');
                                             objDefect.floor_name = $("#drFloor :selected").text();
-                                            objDefect.expectedDate = helper.formatDate(this.get('vlExpetedCompletedDate'));
+                                            objDefect.expectedDate = Utils.formatDate(this.get('vlExpetedCompletedDate'));
                                             //objDefect.defectsArr = $("#listImage").data("kendoMobileListView").dataSource.data().toJSON();
                                             objDefect.arr_imageDefect = JSON.stringify(this.get('listImage').data().toJSON());
                                             objDefect.arr_imageResolve = "[]";
                                             objDefect.color = "white";
                                             objDefect.status = 0;
-                                            objDefect.createdDate = helper.formatDate();
-                                            objDefect.createdTime = helper.currentTime();
+                                            objDefect.createdDate = Utils.formatDate();
+                                            objDefect.createdTime = Utils.currentTime();
                                             ///database.insertInto("defect", objDefect, function(res) {
                                             //if(helper.checkInternet()) {
                                             //helper.uploadDefectToServer(objDefect, function(res) {
@@ -126,9 +252,9 @@ define(['kendo', '../common/UI', '../phonegap/phonegap', '../common/common', '..
                                             //    resetModel(self, function() {
                                             //                defectsView.insertIntoListDefects(objDefect);
                                             //                helper.goBack();
-                                            //}, helper.handlerErr);
+                                            //}, Utils.handleErr);
                                             //}
-                                            ///}, helper.handlerErr);
+                                            ///}, Utils.handleErr);
                                             //database.insertInto('defects', objDefect, function() {
                                             //    resetModel(self, function() {
                                             //        $("#listImage").data("kendoMobileListView").dataSource.data([]);
@@ -154,7 +280,7 @@ define(['kendo', '../common/UI', '../phonegap/phonegap', '../common/common', '..
                                             //    var dataURL = data.dataURL;
                                             //    var nativeURL = data.nativeURL;
                                             //    $("#listImage").data("kendoMobileListView").dataSource.add({
-                                            //        id: helper.timestampString(),
+                                            //        id: Utils.timestampString(),
                                             //        dataURL: nativeURLx,
                                                     //nativeURL: nativeURL
                                             //    });
@@ -162,7 +288,7 @@ define(['kendo', '../common/UI', '../phonegap/phonegap', '../common/common', '..
                                             //});
                                             
                                             this.get('listImage').add({
-                                                                          id: helper.timestampString(),
+                                                                          id: Utils.timestampString(),
                                                                           dataURL: "public/images/test.jpg",
                                                                           description: ''
                                                                       });

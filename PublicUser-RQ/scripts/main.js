@@ -3,6 +3,7 @@ require.config({
     jQuery: "libs/jquery-1.10.2.min",
     underscore: "libs/underscore-min",
     kendo: "libs/kendo.all.min",
+    async: "libs/async"
   },
   shim: {
     jQuery: {
@@ -15,6 +16,9 @@ require.config({
     underscore: {
       exports: "underscore"
     },
+    async: {
+      exports: "async"
+    }
   }
 });
 

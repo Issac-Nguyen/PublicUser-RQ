@@ -1,9 +1,9 @@
-define(['jQuery', 'kendo', '../common/helper'], function($, kendo, helper) {
+define(['jQuery', 'kendo', '../common/helper', '../common/Utils'], function($, kendo, helper, Utils) {
     return {
         init: function(initEvt) {
             // ... init event code ...
-            if (helper.getLocalStorage('isAutoProcessDefect')) {
-                var vl = helper.getLocalStorage('isAutoProcessDefect');
+            if (Utils.getLocalStorage('isAutoProcessDefect')) {
+                var vl = Utils.getLocalStorage('isAutoProcessDefect');
                 if(vl == "true")
                     vl = true;
                 else
@@ -11,7 +11,7 @@ define(['jQuery', 'kendo', '../common/helper'], function($, kendo, helper) {
                 this.model.set('isAutoProcessDefect', vl);
             }
             
-            if (helper.getLocalStorage('profile')) {
+            if (Utils.getLocalStorage('profile')) {
                 var vl = JSON.parse(helper.getLocalStorage('profile'));
                 this.model.set('companyID', vl.companyID);
                 this.model.set('companyPassword', vl.companyPassword);
@@ -40,7 +40,7 @@ define(['jQuery', 'kendo', '../common/helper'], function($, kendo, helper) {
                                         contactNo: '',
                                         onChangeAutoProcessDefect: function(e) {
                                             helper.handleProcessDefect(e.checked.toString());
-                                            helper.setLocalStorage('isAutoProcessDefect', e.checked);
+                                            Utils.setLocalStorage('isAutoProcessDefect', e.checked);
                                         },
                                         saveProfile: function(e) {
                                             var companyID = this.get('companyID');
@@ -57,7 +57,7 @@ define(['jQuery', 'kendo', '../common/helper'], function($, kendo, helper) {
                                                 contactNo: contactNo
                                             };
 
-                                            helper.setLocalStorage('profile', JSON.stringify(objProfile));
+                                            Utils.setLocalStorage('profile', JSON.stringify(objProfile));
                                         }
                                     }),
     }

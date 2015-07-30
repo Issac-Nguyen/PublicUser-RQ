@@ -1,4 +1,4 @@
-define(["jQuery", './sqlite'], function ($, database) {
+define(["jQuery"], function ($) {
     function renderData() {
         console.log("inside callback");
     }
@@ -36,12 +36,8 @@ define(["jQuery", './sqlite'], function ($, database) {
         alert(message);
     }
 
-    function getDataIndexedDB(model, successCallback) {
-        database.selectAll(model, successCallback);
-    }
 
     return {
         getDataAjax: getDataAjax,
-        getDataIndexedDB: getDataIndexedDB
     }
 });

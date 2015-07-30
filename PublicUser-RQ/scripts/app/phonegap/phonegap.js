@@ -1,4 +1,7 @@
-define(['../common/helper', '../common/common'], function(helper, common) {
+define(['../common/Utils', '../common/common'], function(Utils, common) {
+    
+    
+    
     return {
         capturePicture: function(callback) {
             try {
@@ -11,21 +14,21 @@ define(['../common/helper', '../common/common'], function(helper, common) {
                                                           exclusive: false
                                                       },
                                                       function(directory) {
-                                                          fileEntry.moveTo(directory, helper.timestampString() + '.jpg', function(etr) {
+                                                          fileEntry.moveTo(directory, Utils.timestampString() + '.jpg', function(etr) {
                                                               //alert(JSON.stringify(etr));
                                                               callback({nativeURL: etr.nativeURL, dataURL: etr.fullPath.substr(1)});
-                                                          }, helper.handlerErr);
+                                                          }, Utils.handleErr);
                                                       },
-                                                      helper.handlerErr);
+                                                      Utils.handleErr);
                         },
-                                                 helper.handlerErr);
+                                                 Utils.handleErr);
                     });
-                }, helper.handlerErr, {
+                }, Utils.handleErr, {
                                                 quality: 20,
                                                 // destinationType: navigator.camera.DestinationType.FILE_URL
                                             });
             } catch (err) {
-                alert(err);
+               Utils.handleErr(err);
             }
         },
         writeImageIntoSystem: function(url, canvas, cb) {
@@ -41,10 +44,10 @@ define(['../common/helper', '../common/common'], function(helper, common) {
                         if (cb)
                             cb();
                     }
-                    writer.write(helper.convertDataURIToBlob(canvas.toDataURL('image/jpeg', 1), 'image/jpeg'));
-                }, helper.handlerErr);
-            }, helper.handlerErr);
-            //}, helper.handlerErr);
+                    writer.write(Utils.convertDataURIToBlob(canvas.toDataURL('image/jpeg', 1), 'image/jpeg'));
+                }, Utils.handleErr);
+            }, Utils.handleErr);
+            //}, Utils.handleErr);
         },
         uploadFile: function(fileuri, sb, eb) {
             var url = common.urlServerData + "/uploadFile";
