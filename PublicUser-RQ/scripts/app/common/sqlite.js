@@ -1,4 +1,4 @@
-define(['async', 'underscore', './Utils'], function(async, _, Utils) {
+define(['underscore', 'async', './Utils'], function(_, async, Utils) {
     var db;
 
     function executeSQL(sqlString, successCallback, eb) {
@@ -13,24 +13,45 @@ define(['async', 'underscore', './Utils'], function(async, _, Utils) {
     function insertInto(table, data, sb) {
         if(data) {
             var dataArr = [];
-            var strFields = "(";
-            var strVl = "(";
-            for(i in data) {
-                strFields += i + ",";
-                strVl += "?,";
-                dataArr.push(data[i]);
-            }
+            var sqlStr = "";
+            if(_.isArray(data)) {
+                for(d in data) {
+                    var item = data[d];
+                    var strFields = "(";
+            		var strVl = "(";
+                    for(i in item) {
+                        strFields += i + ",";
+                        strVl += "?,";
+                        dataArr.push(item[i]);
+                    }
             
             strFields = strFields.substr(0, strFields.length - 1) + ")";
             strVl = strVl.substr(0, strVl.length - 1) + ")";
             
-            var sqlStr = "INSERT INTO " + table + strFields + " VALUES" + strVl;
+            sqlStr += "INSERT INTO " + table + strFields + " VALUES" + strVl + ";";
+                }
+            } else if(_.isObject(data)) {
+                var strFields = "(";
+            		var strVl = "(";
+                    for(i in data) {
+                        strFields += i + ",";
+                        strVl += "?,";
+                        dataArr.push(data[i]);
+                    }
             
-            //alert(sqlStr);
-            //alert(JSON.stringify(dataArr));
+            strFields = strFields.substr(0, strFields.length - 1) + ")";
+            strVl = strVl.substr(0, strVl.length - 1) + ")";
+            
+            sqlStr = "INSERT INTO " + table + strFields + " VALUES" + strVl;
+            }
+            
+            
+            
+            alert(sqlStr);
+            alert(JSON.stringify(dataArr));
             
             db.transaction(function(tx) {
-             tx.executeSql(sqlStr, dataArr, function(tx1, res) {
+             tx.executeSql(sqlStr, dataArr, function(tx, res) {
                  if(sb)
                      sb(res);
                  }, Utils.handleErr);
@@ -43,14 +64,25 @@ define(['async', 'underscore', './Utils'], function(async, _, Utils) {
         _.mapObject(data, function(vl, key){
             switch(key){
                 case 'building':
-                    _.map(vl, function(o){
+                    //_.map(vl, function(o){
+                    //    var building = {};
+                    //    building.id = o.id;
+                    //    building.Name = o.Name;
+                    //    building.Company_id = o.CompanyID;
+                    //    building.Address = o.Address;
+                    //    insertInto('Buidling', building);
+                    //});
+                    var arrObj = [];
+                    for(i in vl){
+                        var o = vl[i];
                         var building = {};
                         building.id = o.id;
                         building.Name = o.Name;
                         building.Company_id = o.CompanyID;
                         building.Address = o.Address;
-                        insertInto('Buidling', building);
-                    });
+                        arrObj.push(building);
+                    }
+                    insertInto('Buidling', arrObj[0]});
                 break;
                 case 'category':
                     _.map(vl, function(o){
@@ -60,7 +92,7 @@ define(['async', 'underscore', './Utils'], function(async, _, Utils) {
                         category.Company_id = o.CompanyID;
                         category.Building_id = o.BuildingID;
                         category.Description = o.Description;
-                        insertInto('Category', category);
+                        //insertInto('Category', category);
                     });
                     break;
                 case 'department':
@@ -70,7 +102,7 @@ define(['async', 'underscore', './Utils'], function(async, _, Utils) {
                         department.Name = o.Name;
                         department.Building_id = o.BuildingID;
                         department.Description = o.Description;
-                        insertInto('Department', department);
+                        //insertInto('Department', department);
                     });
                     break;
                 case 'floor':
@@ -80,7 +112,7 @@ define(['async', 'underscore', './Utils'], function(async, _, Utils) {
                         floor.Name = o.Name;
                         floor.Building_id = o.BuildingID;
                         floor.Description = o.Description;
-                        insertInto('Floor', floor);
+                        //insertInto('Floor', floor);
                     });
                     break;
                 case 'zone':
@@ -90,7 +122,7 @@ define(['async', 'underscore', './Utils'], function(async, _, Utils) {
                         zone.Name = o.Name;
                         zone.Building_id = o.BuildingID;
                         zone.Description = o.Description;
-                        insertInto('Zone', zone);
+                        //insertInto('Zone', zone);
                     });
                     break;
                 case 'subcategory':
@@ -100,7 +132,7 @@ define(['async', 'underscore', './Utils'], function(async, _, Utils) {
                         subcategory.Name = o.Name;
                         subcategory.Category_id = o.CategoryID;
                         subcategory.Description = o.Description;
-                        insertInto('SubCategory', subcategory);
+                        //insertInto('SubCategory', subcategory);
                     });
                     break;
                 case 'subdepartment':
@@ -110,7 +142,7 @@ define(['async', 'underscore', './Utils'], function(async, _, Utils) {
                         subdepartment.Name = o.Name;
                         subdepartment.Department_id = o.DepartmentID;
                         subdepartment.Description = o.Description;
-                        insertInto('SubDepartment', subdepartment);
+                        //insertInto('SubDepartment', subdepartment);
                     });
                     break;
                 case 'subzone':
@@ -120,7 +152,7 @@ define(['async', 'underscore', './Utils'], function(async, _, Utils) {
                         subzone.Name = o.Name;
                         subzone.Zone_id = o.ZoneID;
                         subzone.Description = o.Description;
-                        insertInto('SubZone', subzone);
+                        //insertInto('SubZone', subzone);
                     });
                     break;
             }
@@ -159,11 +191,10 @@ define(['async', 'underscore', './Utils'], function(async, _, Utils) {
     }
 
     function start(sb, eb) {
-        // Protect ourselves inside old browsers
         try {
-            db = window.sqlitePlugin.openDatabase({Name: "publicUser.db", location: 2});
+            db = window.sqlitePlugin.openDatabase({name: "publicuser.db", location: 2});
         } catch (e) {
-            eb(e);
+           alert(JSON.stringify(e));
         }
         if (!db) {
             alert('fail');
@@ -172,23 +203,23 @@ define(['async', 'underscore', './Utils'], function(async, _, Utils) {
 
         function installModels() {
             db.transaction(function(tx) {
-               tx.executeSql('DROP TABLE IF EXISTS defect');
-                tx.executeSql('DROP TABLE IF EXISTS Building');
-                tx.executeSql('DROP TABLE IF EXISTS Category');
-                tx.executeSql('DROP TABLE IF EXISTS SubCategory');
-                tx.executeSql('DROP TABLE IF EXISTS SubDepartment');
-                tx.executeSql('DROP TABLE IF EXISTS Zone');
-                tx.executeSql('DROP TABLE IF EXISTS SubZone');
-                tx.executeSql('DROP TABLE IF EXISTS Floor');
+               //tx.executeSql('DROP TABLE IF EXISTS defect');
+                //tx.executeSql('DROP TABLE IF EXISTS Building');
+                //tx.executeSql('DROP TABLE IF EXISTS Category');
+                //tx.executeSql('DROP TABLE IF EXISTS SubCategory');
+                //tx.executeSql('DROP TABLE IF EXISTS SubDepartment');
+                //tx.executeSql('DROP TABLE IF EXISTS Zone');
+                //tx.executeSql('DROP TABLE IF EXISTS SubZone');
+                //tx.executeSql('DROP TABLE IF EXISTS Floor');
                tx.executeSql('CREATE TABLE IF NOT EXISTS Building (id text primary key, Company_id text, Name text, Address text)'); 
-               tx.executeSql('CREATE TABLE IF NOT EXISTS Category (id text primary key, Building_id text, Company_id text, Name text, Description text)'); 
-               tx.executeSql('CREATE TABLE IF NOT EXISTS SubCategory (id text primary key, Category_id text, Name text, Description text)'); 
-               tx.executeSql('CREATE TABLE IF NOT EXISTS Department (id text primary key, Building_id text, Name text, Description text)'); 
-               tx.executeSql('CREATE TABLE IF NOT EXISTS SubDepartment (id text primary key, Department_id text, Name text, Description text)'); 
-               tx.executeSql('CREATE TABLE IF NOT EXISTS Zone (id text primary key, Building_id text, Name text, Description text)'); 
-               tx.executeSql('CREATE TABLE IF NOT EXISTS SubZone (id text primary key, Zone_id text, Name text, Description text)');
-               tx.executeSql('CREATE TABLE IF NOT EXISTS Floor (id text primary key, Building_id text, Name text, Description text)'); 
-               tx.executeSql('CREATE TABLE IF NOT EXISTS defect (id text primary key, Building_id text, building_Name text, category_id text, category_Name text, subcategory_id text, subcategory_Name text, department_id text, department_Name text, zone_id text, zone_Name text, subzone_id text, subzone_name text, floor_id text, floor_Name text, expectedDate text, arr_imageDefect text, arr_imageResolve text, color text, status INTEGER, createdDate text, createdTime text)'); 
+               //tx.executeSql('CREATE TABLE IF NOT EXISTS Category (id text primary key, Building_id text, Company_id text, Name text, Description text)'); 
+               //tx.executeSql('CREATE TABLE IF NOT EXISTS SubCategory (id text primary key, Category_id text, Name text, Description text)'); 
+               //tx.executeSql('CREATE TABLE IF NOT EXISTS Department (id text primary key, Building_id text, Name text, Description text)'); 
+               //tx.executeSql('CREATE TABLE IF NOT EXISTS SubDepartment (id text primary key, Department_id text, Name text, Description text)'); 
+               //tx.executeSql('CREATE TABLE IF NOT EXISTS Zone (id text primary key, Building_id text, Name text, Description text)'); 
+               //tx.executeSql('CREATE TABLE IF NOT EXISTS SubZone (id text primary key, Zone_id text, Name text, Description text)');
+               //tx.executeSql('CREATE TABLE IF NOT EXISTS Floor (id text primary key, Building_id text, Name text, Description text)'); 
+               //tx.executeSql('CREATE TABLE IF NOT EXISTS defect (id text primary key, Building_id text, building_Name text, category_id text, category_Name text, subcategory_id text, subcategory_Name text, department_id text, department_Name text, zone_id text, zone_Name text, subzone_id text, subzone_name text, floor_id text, floor_Name text, expectedDate text, arr_imageDefect text, arr_imageResolve text, color text, status INTEGER, createdDate text, createdTime text)'); 
             }, eb);
         }
         

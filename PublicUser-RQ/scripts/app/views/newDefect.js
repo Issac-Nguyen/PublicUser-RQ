@@ -104,7 +104,7 @@ define(['kendo', 'async', '../common/UI', '../phonegap/phonegap', '../common/com
                     }, Utils.handleErr);
             }], function(err, results){
                 var options = {
-                dataSource: this.model.get('dsBuilding'), dataTextField: "Name",
+                dataSource: self.model.get('dsBuilding'), dataTextField: "Name",
                 dataValueField: "ID", optionLabel: "Select a building...",
                 change: function(e) {
                     alert('change');
@@ -114,46 +114,46 @@ define(['kendo', 'async', '../common/UI', '../phonegap/phonegap', '../common/com
             UI.buildDropDownList('drBuilding', options);
             
             options = {
-                dataSource: this.model.get('dsCategory'), dataTextField: "Name",
+                dataSource: self.model.get('dsCategory'), dataTextField: "Name",
                 dataValueField: "ID", optionLabel: "Select a category..."
             };
             
             UI.buildDropDownList('drCategory', options);
             
             options = {
-                dataSource: this.model.get('dsSubCategory'), dataTextField: "Name",
+                dataSource: self.model.get('dsSubCategory'), dataTextField: "Name",
                 dataValueField: "ID", optionLabel: "Select a sub-category..."
             };
             UI.buildDropDownList('drSubCategory', options);
             
             options = {
-                dataSource: this.model.get('dsDepartment'), dataTextField: "Name",
+                dataSource: self.model.get('dsDepartment'), dataTextField: "Name",
                 dataValueField: "ID", optionLabel: "Select a department..."
             };
             UI.buildDropDownList('drDepartment', options);
             
             options = {
-                dataSource: this.model.get('dsSubDepartment'), dataTextField: "Name",
+                dataSource: self.model.get('dsSubDepartment'), dataTextField: "Name",
                 dataValueField: "ID", optionLabel: "Select a sub-department..."
             };
             UI.buildDropDownList('drSubDepartment', options);
             
             options = {
-                dataSource: this.model.get('dsZone'), dataTextField: "Name",
+                dataSource: self.model.get('dsZone'), dataTextField: "Name",
                 dataValueField: "ID", optionLabel: "Select a zone..."
             };
             
             UI.buildDropDownList('drZone', options);
             
              options = {
-                dataSource: this.model.get('dsSubZone'), dataTextField: "Name",
+                dataSource: self.model.get('dsSubZone'), dataTextField: "Name",
                 dataValueField: "ID", optionLabel: "Select a sub-zone..."
             };
             
             UI.buildDropDownList('drSubZone', options);
             
             options = {
-                dataSource: this.model.get('dsFloor'), dataTextField: "Name",
+                dataSource: self.model.get('dsFloor'), dataTextField: "Name",
                 dataValueField: "ID", optionLabel: "Select a floor..."
             };
             

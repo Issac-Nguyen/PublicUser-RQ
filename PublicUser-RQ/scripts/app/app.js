@@ -5,7 +5,7 @@ define(['jQuery', 'kendo', 'underscore', 'app/views/baseView', 'app/common/sqlit
 		getAppObj: function() {
 			return _kendoApplication;
 		},
-        onNotificationAPN: helper.onNotificationAPN,
+        //onNotificationAPN: helper.onNotificationAPN,
 		init: function() {
 
 			kendo.UserEvents.defaultThreshold(20);
@@ -17,27 +17,28 @@ define(['jQuery', 'kendo', 'underscore', 'app/views/baseView', 'app/common/sqlit
 					this.showLoading();
                     //helper.registerPushNotification();
 					database.start(function() {
+                       
                 
 						 //database.getAllDefectData(function(data) {
                          //     self.view().model.initDefectsList(data);
 						//	 helper.handleAutoProcessDefect();
                           //   if(helper.checkInternet()) {
-                                helper.getDataAjax({
-                                    apiURL: common.urlServerData + '/noauthen-getInfomationInit',
-                        			format: 'JSON',
-                        			successCallback:function(data){
-                                        console.log(data);
-                                        database.initData(data, function() {
-                                            self.hideLoading();
-                                        });
+                                //helper.getDataAjax({
+                                //    apiURL: common.urlServerData + '/noauthen-getInfomationInit',
+                        		//	format: 'JSON',
+                        		//	successCallback:function(data){
+                        //                console.log(data);
+                                //        database.initData(data, function() {
+                                 //           self.hideLoading();
+                                //        });
                                         
-                                    },
-                        			error: function() {self.hideLoading();},
+                                   // },
+                        		//	error: function() {self.hideLoading();},
                              		//self.hideLoading();
-                                });
+                             //   });
                     
                             // }  else {
-                                 //self.hideLoading();
+                                 self.hideLoading();
                              //}
 							
 							
