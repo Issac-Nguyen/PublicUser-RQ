@@ -1,4 +1,4 @@
-define([], function() {
+define(['async', 'underscore', './Utils'], function(async, _, Utils) {
     var db;
 
     function executeSQL(sqlString, successCallback, eb) {
@@ -10,7 +10,7 @@ define([], function() {
              }, eb);
         }
     
-    function insertInto(table, data, sb, eb) {
+    function insertInto(table, data, sb) {
         if(data) {
             var dataArr = [];
             var strFields = "(";
@@ -29,12 +29,102 @@ define([], function() {
             alert(sqlStr);
             alert(JSON.stringify(dataArr));
             
-            db.transaction(function(tx) {
-             tx.executeSql(sqlStr, dataArr, function(tx1, res) {
-                 sb(res);
-                 }, function(e){alert(e)});
-             }, function(e){alert(e)});
+            //db.transaction(function(tx) {
+            // tx.executeSql(sqlStr, dataArr, function(tx1, res) {
+            //     if(sb)
+            //         sb(res);
+            //     }, Utils.handleErr);
+            // },  Utils.handleErr);
         }
+    }
+    
+    function initData(data, cb) {
+        Utils.setLocalStorage('latestGetData', Utils.timestampString);
+        _.mapObject(data, function(vl, key){
+            switch(key){
+                case 'building':
+                    _.map(vl, function(o){
+                        var building = {};
+                        building.id = o.id;
+                        building.Name = o.Name;
+                        building.Company_id = o.CompanyID;
+                        building.Address = o.Address;
+                        insertInto('Buidling', building);
+                    });
+                break;
+                case 'category':
+                    _.map(vl, function(o){
+                        var category = {};
+                        category.id = o.id;
+                        category.Name = o.Name;
+                        category.Company_id = o.CompanyID;
+                        category.Building_id = o.BuildingID;
+                        category.Description = o.Description;
+                        insertInto('Category', category);
+                    });
+                    break;
+                case 'department':
+                    _.map(vl, function(o){
+                        var department = {};
+                        department.id = o.id;
+                        department.Name = o.Name;
+                        department.Building_id = o.BuildingID;
+                        department.Description = o.Description;
+                        insertInto('Department', department);
+                    });
+                    break;
+                case 'floor':
+                    _.map(vl, function(o){
+                        var floor = {};
+                        floor.id = o.id;
+                        floor.Name = o.Name;
+                        floor.Building_id = o.BuildingID;
+                        floor.Description = o.Description;
+                        insertInto('Floor', floor);
+                    });
+                    break;
+                case 'zone':
+                    _.map(vl, function(o){
+                        var zone = {};
+                        zone.id = o.id;
+                        zone.Name = o.Name;
+                        zone.Building_id = o.BuildingID;
+                        zone.Description = o.Description;
+                        insertInto('Zone', zone);
+                    });
+                    break;
+                case 'subcategory':
+                    _.map(vl, function(o){
+                        var subcategory = {};
+                        subcategory.id = o.id;
+                        subcategory.Name = o.Name;
+                        subcategory.Category_id = o.CategoryID;
+                        subcategory.Description = o.Description;
+                        insertInto('SubCategory', subcategory);
+                    });
+                    break;
+                case 'subdepartment':
+                    _.map(vl, function(o){
+                        var subdepartment = {};
+                        subdepartment.id = o.id;
+                        subdepartment.Name = o.Name;
+                        subdepartment.Department_id = o.DepartmentID;
+                        subdepartment.Description = o.Description;
+                        insertInto('SubDepartment', subdepartment);
+                    });
+                    break;
+                case 'subzone':
+                    _.map(vl, function(o){
+                        var subzone = {};
+                        subzone.id = o.id;
+                        subzone.Name = o.Name;
+                        subzone.Zone_id = o.ZoneID;
+                        subzone.Description = o.Description;
+                        insertInto('SubZone', subzone);
+                    });
+                    break;
+            }
+        });
     }
     
     function selectAll(table, sb, eb) {
@@ -42,8 +132,8 @@ define([], function() {
             var sqlStr = "SELECT * FROM " + table;
             tx.executeSql(sqlStr, [], function(tx, res) {
                 sb(res);
-            }, function(e){alert(e)});
-        }, function(e){alert(e)});
+            }, eb);
+        }, eb);
     }
     
     function selectCondition(table, condition, sb, eb) {
@@ -54,11 +144,22 @@ define([], function() {
             }, eb);
         }, eb);
     }
+    
+    function deleteDefect(condition, successCallback) {
+        var strSQL = "DELETE defect";
+        if(condition)
+            strSQL = strSQL + " " + condition;
+        executeSQL(strSQL, successCallback, Utils.handleErr);
+    }
+    
+    function getAllDefectData(successCallback) {
+       selectAll('defect', successCallback, Utils.handleErr);
+    }
 
     function start(sb, eb) {
         // Protect ourselves inside old browsers
         try {
-            db = window.sqlitePlugin.openDatabase({name: "publicUser.db", location: 2});
+            db = window.sqlitePlugin.openDatabase({Name: "publicUser.db", location: 2});
         } catch (e) {
             eb(e);
         }
@@ -70,12 +171,15 @@ define([], function() {
         function installModels() {
             db.transaction(function(tx) {
                //tx.executeSql('DROP TABLE IF EXISTS defect');
-               tx.executeSql('CREATE TABLE IF NOT EXISTS Building (id text primary key, company_id text, name text, address text)'); 
-               tx.executeSql('CREATE TABLE IF NOT EXISTS Category (id text primary key, building_id text, name text, description text)'); 
-               tx.executeSql('CREATE TABLE IF NOT EXISTS SubCategory (id text primary key, Category_id text, name text, description text)'); 
-               tx.executeSql('CREATE TABLE IF NOT EXISTS Zone (id text primary key, building_id text, name text, description text)'); 
-               tx.executeSql('CREATE TABLE IF NOT EXISTS Floor (id text primary key, building_id text, name text, description text)'); 
-               tx.executeSql('CREATE TABLE IF NOT EXISTS defect (id text primary key, building_id text, building_name text, category_id text, category_name text, subcategory_id text, subcategory_name text, zone_id text, zone_name text, floor_id text, floor_name text, expectedDate text, arr_imageDefect text, arr_imageResolve text, color text, status INTEGER, createdDate text, createdTime text)'); 
+               tx.executeSql('CREATE TABLE IF NOT EXISTS Building (id text primary key, Company_id text, Name text, Address text)'); 
+               tx.executeSql('CREATE TABLE IF NOT EXISTS Category (id text primary key, Building_id text, Company_id text, Name text, Description text)'); 
+               tx.executeSql('CREATE TABLE IF NOT EXISTS SubCategory (id text primary key, Category_id text, Name text, Description text)'); 
+               tx.executeSql('CREATE TABLE IF NOT EXISTS Department (id text primary key, Building_id text, Name text, Description text)'); 
+               tx.executeSql('CREATE TABLE IF NOT EXISTS SubDepartment (id text primary key, Department_id text, Name text, Description text)'); 
+               tx.executeSql('CREATE TABLE IF NOT EXISTS Zone (id text primary key, Building_id text, Name text, Description text)'); 
+               tx.executeSql('CREATE TABLE IF NOT EXISTS SubZone (id text primary key, Zone_id text, Name text, Description text)');
+               tx.executeSql('CREATE TABLE IF NOT EXISTS Floor (id text primary key, Building_id text, Name text, Description text)'); 
+               tx.executeSql('CREATE TABLE IF NOT EXISTS defect (id text primary key, Building_id text, building_Name text, category_id text, category_Name text, subcategory_id text, subcategory_Name text, department_id text, department_Name text, zone_id text, zone_Name text, subzone_id text, subzone_name text, floor_id text, floor_Name text, expectedDate text, arr_imageDefect text, arr_imageResolve text, color text, status INTEGER, createdDate text, createdTime text)'); 
             }, eb);
         }
         
@@ -84,11 +188,26 @@ define([], function() {
         if(sb)
             sb();
     }
+    
+    function countTb(table, condition, sb, eb) {
+        var strSQL = "select count(_id) from " + table;
+        if(condition)
+            strSQL += strSQL + " WHERE " + condition;
+        executeSQL(strSQL, [], sb, eb);
+    }
+    
+    function checkExitApp(cb) {
+        async({}, function(err, results) {
+           cb(err, results); 
+        });
+    }
+    
     return {
         start: start,
         executeSQL: executeSQL,
         insertInto: insertInto,
         selectAll: selectAll,
-        selectCondition: selectCondition
+        selectCondition: selectCondition,
+        initData: initData
     };
 });
